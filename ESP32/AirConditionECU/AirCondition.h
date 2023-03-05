@@ -26,6 +26,10 @@ class AirCondition{
        char windSpeed;  
        
        AirCondition();
+       void Init();
+       void AirConditionPower();
+       void AirConditionType(String value);
+       void AirConditionRegulate(String value);
 };
 
 #endif

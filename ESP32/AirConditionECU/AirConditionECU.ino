@@ -23,15 +23,14 @@ void loop() {
 }
 
 void receivePacket(){
-  // try to parse packet
+
   int packetSize = CAN.parsePacket();
 
   if (packetSize) {
-    // received a packet
+
     Serial.print("Received ");
 
     if (CAN.packetRtr()) {
-      // Remote transmission request, packet contains no data
       Serial.print("RTR ");
     }
 
@@ -44,32 +43,32 @@ void receivePacket(){
     } else {
       Serial.print(" and length ");
       Serial.println(packetSize);
-
-      //控制空调开关指令
-      if (CAN.packetId() == 0x100){
-
-      }
-      //控制空调状态指令
-      else if (CAN.packetId() == 0x101){
-
-      }
-      //控制空调数值指令
-      else if (CAN.packetId() == 0x102){
-
-      }
+      
       value = "";
       while (CAN.available()) {
         value = value + (char)CAN.read();
       }
       Serial.println(value);
+      //控制空调开关指令
+      if (CAN.packetId() == 0x100){
+        airCondition.AirConditionPower();
+        Serial.println("change AirConditionPower");
+      }
+      //控制空调状态指令
+      else if (CAN.packetId() == 0x101){
+        airCondition.AirConditionType(value);
+        Serial.println("change AirConditionType");
+      }
+      //控制空调数值指令
+      else if (CAN.packetId() == 0x102){
+        airCondition.AirConditionRegulate(value);
+        Serial.println("change AirConditionRegulate");
+      }
     }
-
-    Serial.println();
   }
 }
 
 void sendPacket(){
-  // send packet: id is 11 bits, packet can contain up to 8 bytes of data
   Serial.print("Sending packet ... ");
 
   CAN.beginPacket(0x200);
