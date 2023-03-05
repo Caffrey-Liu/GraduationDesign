@@ -1,0 +1,16 @@
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\bin\Debug\CANController.exe.config
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\bin\Debug\CANController.exe
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\bin\Debug\CANController.pdb
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.csproj.AssemblyReference.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.csproj.SuggestedBindingRedirects.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\MainWindow.g.cs
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\App.g.cs
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController_MarkupCompile.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController_MarkupCompile.lref
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\MainWindow.baml
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.g.resources
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.Properties.Resources.resources
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.csproj.GenerateResource.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.csproj.CoreCompileInputs.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.exe
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CANController.pdb
