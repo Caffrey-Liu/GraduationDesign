@@ -95,10 +95,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\panel2.jpg" />
+    <Resource Include="Image\FrontGlass.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\panel.jpg" />
+    <Resource Include="Image\BackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\InnerCycle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\OutCycle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\panel1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\panel3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

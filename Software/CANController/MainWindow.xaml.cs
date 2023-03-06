@@ -26,20 +26,28 @@ namespace CANController
             InitializeComponent();
         }
 
-        //按钮按下改变颜色
-        int tag = 1;
-        private void btn_Click(object sender, RoutedEventArgs e)
+        //按钮按下改变颜色,各个按钮互不影响
+        Dictionary<string, int> tags = new Dictionary<string, int>();
+        private void ButtonClick(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (tag == 0)
-            {
-                btn.Background = new SolidColorBrush(Colors.White);
-                tag = 1;
+            int tag;
+            if (tags.ContainsKey(btn.Name)){
+                tag = (tags[btn.Name] + 1) % 2;
+                tags[btn.Name] = tag;
             }
-            else
-            {
+            else {
+                tag = 1;
+                tags.Add(btn.Name, tag);
+            }
+            if (tag == 0) { 
+                btn.Background = new SolidColorBrush(Colors.White);
+                Console.WriteLine(btn.Name + "关闭");
+            }    
+            else{
+                //btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#18dcff"));
                 btn.Background = new SolidColorBrush(Colors.LightSkyBlue);
-                tag = 0;
+                Console.WriteLine(btn.Name + "开启");
             }
         }
     }
