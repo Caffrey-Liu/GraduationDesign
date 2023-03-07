@@ -115,5 +115,22 @@
   <ItemGroup>
     <Resource Include="Image\panel3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\low.png" />
+    <Resource Include="Image\mid.png" />
+    <Resource Include="Image\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\cold.png" />
+    <Resource Include="Image\heat.png" />
+    <Resource Include="Image\power.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\bigfan.png" />
+    <Resource Include="Image\smallfan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\pm2.5.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
