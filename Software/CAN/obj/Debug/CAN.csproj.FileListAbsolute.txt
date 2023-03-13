@@ -1,0 +1,15 @@
+C:\GitHub\CAN\CAN\obj\Debug\CAN.csprojResolveAssemblyReference.cache
+C:\GitHub\CAN\CAN\bin\Debug\CAN.dll
+C:\GitHub\CAN\CAN\bin\Debug\CAN.pdb
+C:\GitHub\CAN\CAN\bin\Debug\log4net.dll
+C:\GitHub\CAN\CAN\obj\Debug\CAN.dll
+C:\GitHub\CAN\CAN\obj\Debug\CAN.pdb
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\bin\Debug\CAN.dll
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\bin\Debug\CAN.pdb
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\bin\Debug\log4net.dll
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\obj\Debug\CAN.csproj.AssemblyReference.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\obj\Debug\CAN.csproj.CoreCompileInputs.cache
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\obj\Debug\CAN.csproj.CopyComplete
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\obj\Debug\CAN.dll
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\obj\Debug\CAN.pdb
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CAN\bin\Debug\log4net.xml
