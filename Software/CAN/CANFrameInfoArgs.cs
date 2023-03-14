@@ -13,7 +13,7 @@ namespace CAN
         /// CAN 的接收帧
         /// </summary>
         FrameInfo _canFrameInfo = new FrameInfo("1", "1", "1", "1", "1");
-        internal FrameInfo CanFrameInfo
+        public FrameInfo CanFrameInfo
         {
             get { return _canFrameInfo; }
         }

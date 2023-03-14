@@ -114,17 +114,14 @@ namespace CAN
                     if (!_mConnected)
                         break;
                     _receivedLen = 0;
-                    _receivedLen = (int)CANApi.VCI_Receive(
-                        _mDeviceType, _DeviceIndex,
-                        _CanIndex,
-                        ref _CanRawFrames[0], 50, 200);
+                    _receivedLen = (int)CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[0], 50, 200);
+                    //_receivedLen = 3;
+                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[0], 1, 200);
+                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[1], 1, 200);
+                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[2], 1, 200);
                     if (_receivedLen <= 0)
                     {
-                        //注意：如果没有读到数据则必须调用此函数来读取出当前的错误码，
-                        //千万不能省略这一步（即使你可能不想知道错误码是什么）
-                        CANApi.VCI_ReadErrInfo(
-                            _mDeviceType, _DeviceIndex,
-                            _CanIndex, ref _CanErrInfo);
+                        CANApi.VCI_ReadErrInfo(_mDeviceType, _DeviceIndex,_CanIndex, ref _CanErrInfo);
                     }
                     else
                     {
@@ -134,6 +131,7 @@ namespace CAN
                                 break;
                             _CanRawFrame = _CanRawFrames[i];
                             //ID
+                            Console.WriteLine("ID  = " + _CanRawFrame.ID);
                             _frameID = string.Format("{0:X8}", _CanRawFrame.ID);
                             //timestamp
                             if (_CanRawFrame.TimeFlag == 0)
@@ -212,10 +210,10 @@ namespace CAN
             try
             {
                 EventHandler<CANFrameInfoArgs> temp = ReceviedData;
+                Console.WriteLine(canframe.FrameID + ' ' + canframe.Data);
                 CANFrameInfoArgs e = new CANFrameInfoArgs(canframe);
                 if (temp != null)
                 {
-                    Console.WriteLine("接收数据");
                     temp(this, e);
                 }
             }
