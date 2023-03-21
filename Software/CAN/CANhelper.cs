@@ -7,6 +7,7 @@ using TTOperator.Util.Log;
 using System.Windows.Forms;
 using System.Threading;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace CAN
 {
@@ -113,12 +114,11 @@ namespace CAN
                     Thread.Sleep(10);
                     if (!_mConnected)
                         break;
-                    _receivedLen = 0;
-                    _receivedLen = (int)CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[0], 50, 200);
-                    //_receivedLen = 3;
-                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[0], 1, 200);
-                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[1], 1, 200);
-                    //CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, ref _CanRawFrames[2], 1, 200);
+                    
+                    UInt32 con_maxlen = 50;
+                    IntPtr pt = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(CANApi.VCI_CAN_OBJ)) * (Int32)con_maxlen);
+                    _receivedLen = (int)CANApi.VCI_Receive(_mDeviceType, _DeviceIndex, _CanIndex, pt, 50, 200);
+
                     if (_receivedLen <= 0)
                     {
                         CANApi.VCI_ReadErrInfo(_mDeviceType, _DeviceIndex,_CanIndex, ref _CanErrInfo);
@@ -127,11 +127,11 @@ namespace CAN
                     {
                         for (int i = 0; i < _receivedLen; i++)
                         {
+                            CANApi.VCI_CAN_OBJ obj = (CANApi.VCI_CAN_OBJ)Marshal.PtrToStructure((IntPtr)((UInt32)pt + i * Marshal.SizeOf(typeof(CANApi.VCI_CAN_OBJ))), typeof(CANApi.VCI_CAN_OBJ));
                             if (i > _CanRawFrames.Length)
                                 break;
-                            _CanRawFrame = _CanRawFrames[i];
+                            _CanRawFrame = obj;
                             //ID
-                            Console.WriteLine("ID  = " + _CanRawFrame.ID);
                             _frameID = string.Format("{0:X8}", _CanRawFrame.ID);
                             //timestamp
                             if (_CanRawFrame.TimeFlag == 0)
@@ -210,7 +210,6 @@ namespace CAN
             try
             {
                 EventHandler<CANFrameInfoArgs> temp = ReceviedData;
-                Console.WriteLine(canframe.FrameID + ' ' + canframe.Data);
                 CANFrameInfoArgs e = new CANFrameInfoArgs(canframe);
                 if (temp != null)
                 {
@@ -265,7 +264,6 @@ namespace CAN
                 {
                     //open device
                     _openCode = CANApi.VCI_OpenDevice(_mDeviceType, _canSetting.DeviceIndex, 0);
-                    Console.WriteLine(_mDeviceType + " " + _canSetting.DeviceIndex);
                     if (_openCode != CANApi.STATUS_OK)
                     {
                         throw new CANexception("打开设备失败，VCI_OpenDevice 返回值：" + _openCode);
@@ -306,8 +304,7 @@ namespace CAN
             {
                 if (!_mConnected)
                     return;
-                if (CANApi.VCI_ResetCAN(_mDeviceType, _canSetting.DeviceIndex,
-                    _canSetting.CanIndex) == CANApi.STATUS_OK)
+                if (CANApi.VCI_ResetCAN(_mDeviceType, _canSetting.DeviceIndex, _canSetting.CanIndex) == CANApi.STATUS_OK)
                 {
                     return;
                 }

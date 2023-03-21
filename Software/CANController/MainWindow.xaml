@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="空调仿真ECU" Height="720" Width="1280">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="15"/>
@@ -212,12 +212,16 @@
                 <Border Grid.Column="2" Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="0.9*"/>
+                            <ColumnDefinition Width="1.0*"/>
                             <ColumnDefinition Width="0.6*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Right"></Image>
-                        <Grid Grid.Column="1">
+                        <Button Grid.Column="0" x:Name="CANDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
+                            
+                        </Button>
+                        <Image Grid.Column="1" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
+                        <Grid Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
@@ -229,7 +233,7 @@
                                 室内
                             </TextBlock>
                         </Grid>
-                        <Grid Grid.Column="2">
+                        <Grid Grid.Column="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>

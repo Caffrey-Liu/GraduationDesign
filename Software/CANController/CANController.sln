@@ -5,28 +5,42 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANController", "CANController.csproj", "{2220B881-19C8-4BE9-867C-BB44AE00B906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApplication1", "C:\Users\47682\Desktop\CAN_C#\WindowsApplication1\WindowsApplication1\WindowsApplication1.csproj", "{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAN", "..\CAN\CAN.csproj", "{A824D3C8-AF74-487E-A4D9-09AEA5739656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApplication1", "..\..\..\c#例子(vs2005)\WindowsApplication1\WindowsApplication1\WindowsApplication1.csproj", "{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Debug|x86.Build.0 = Debug|Any CPU
 		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Release|x86.ActiveCfg = Release|Any CPU
+		{2220B881-19C8-4BE9-867C-BB44AE00B906}.Release|x86.Build.0 = Release|Any CPU
 		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Debug|x86.Build.0 = Debug|Any CPU
 		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Release|x86.ActiveCfg = Release|Any CPU
+		{A824D3C8-AF74-487E-A4D9-09AEA5739656}.Release|x86.Build.0 = Release|Any CPU
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|x86.ActiveCfg = Debug|x86
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Debug|x86.Build.0 = Debug|x86
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|x86.ActiveCfg = Release|x86
+		{97A53E49-9547-4C26-99EC-AA8CB1C46AA3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

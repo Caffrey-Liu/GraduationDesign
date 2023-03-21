@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Interop;
 
 namespace CANController
 {
@@ -29,10 +30,9 @@ namespace CANController
 
         private static void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
-            Console.WriteLine("收到消息    ");
+            Console.WriteLine("收到消息");
             FrameInfo message = e.CanFrameInfo;
-            //Console.WriteLine("ID   " + message.FrameID);
-            //Console.WriteLine("Data    " + message.Data);
+            Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
             //throw new NotImplementedException();
         }
 
@@ -58,7 +58,7 @@ namespace CANController
                                                   "00000000", //canCode 过滤码
                                                   "FFFFFFFF", //canMask 掩码
                                                   "00", //时间高位
-                                                  "1C"); //时间低位,默认 4F 2F
+                                                  "1C"); //时间低位,默认 00 1C 500Mps
                 }
             }
             if (tag == 0) { 
@@ -78,9 +78,36 @@ namespace CANController
                 can.ReceviedData += Can_ReceviedData;
             }
             if (btn.Name.Equals("power") && tags[btn.Name] == 0) {
+                //can.ResetCANDevice();
                 can.CloseCANDevice();
                 Console.WriteLine("关闭成功");
+                can.ReceviedData -= Can_ReceviedData;
             }
+        }
+
+        CanDetail CD = new CanDetail();
+        int CDtag = 0;
+        private void showCANDetail(object sender, RoutedEventArgs e) {
+            if (CDtag == 0)
+            {
+                can.ReceviedData += CD.Can_ReceviedData;
+                CD.Show();
+                WindowInteropHelper parentHelper = new WindowInteropHelper(this);
+                WindowInteropHelper childHelper = new WindowInteropHelper(CD);
+
+                Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
+
+                CD.WindowState = WindowState.Normal; 
+                CDtag = 1;
+            }
+            else {
+                can.ReceviedData -= CD.Can_ReceviedData;
+                CD.Hide();
+                CDtag = 0;
+            }
+          
+
+           
         }
     }
 }
