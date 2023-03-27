@@ -1,40 +1,76 @@
+#include <CAN.h>
 #include "AirCondition.h"
 AirCondition::AirCondition(){
   Init();
 }
 
 void AirCondition::Init(){
-  power = 0;
+  TAM = 201;
+  TR = 150;
+  TE[0] = 164;
+  TE[1] = 1;
+  RH[0] = char(69);
+  RH[1] = char(1);
+  TS = 63;
 
-  heatType = 0;
-  circulateType = 0;
-  backGlassHeat = 0;
-  frontGlassHeat = 0;
-  windDirection = 1;
-
-  leftTemperature = 42;
-  rightTemperature = 42;
-  windSpeed = 50;
+  BLMLVL = 0;
+  AIRMIXDR = 68;
+  AIRMIXPA = 68;
+  INLET = 28;
+  OUTLET = 28;
+  INLETDIR = 0;
+  OUTLETDIR = 0;
+  RRDEFSTATUS = 0;
 }
 
-void AirCondition::AirConditionPower(){
-  //关闭，所有值置为初始值
-  if (power == 1){
-    Init();
-  }
-  else power = 1;
+void AirCondition::changeForPANELMSG01(PANELMSG01 panelmsg01){
+  BLMLVL = panelmsg01.BLWSET;
+  INLET = panelmsg01.ILETSET;
+  OUTLET = panelmsg01.OLETSET;
+  RRDEFSTATUS = panelmsg01.RRDEF;
+  //FRDEF
+  //ACON
+  //ACMODE
+  //TSETDR
+  //TSETPA
 }
 
-void AirCondition::AirConditionType(String value){
-  heatType = value[0];
-  circulateType = value[1];
-  backGlassHeat = value[2];
-  frontGlassHeat = value[3];
-  windDirection = value[4];
+void AirCondition::sendACMSG01(){
+  CAN.beginPacket(0x101);
+  CAN.write(TAM);
+  CAN.write(TR);
+  CAN.write(TE[0]);
+  CAN.write(TE[1]);
+  CAN.write(RH[0]);
+  CAN.write(RH[1]);
+  CAN.write(TS);
+  CAN.endPacket();
+}
+void AirCondition::sendACMSG02(){
+  char temp;  
+  CAN.beginPacket(0x102);
+  temp = 0b00001111 & BLMLVL;
+  CAN.write(temp);
+  CAN.write(AIRMIXDR);
+  CAN.write(AIRMIXPA);
+  CAN.write(INLET);
+  CAN.write(OUTLET);
+  temp = 0b01110000 & (OUTLETDIR <<4);
+  temp = temp & INLETDIR;
+  CAN.write(temp);
+  temp = 0b00000001 & RRDEFSTATUS;
+  CAN.write(temp);
+  CAN.endPacket();
 }
 
-void AirCondition::AirConditionRegulate(String value){
-  leftTemperature = value[0];
-  rightTemperature = value[1];
-  windSpeed = value[2];
+void PANELMSG01::getValue(String value){
+  ILETSET = value[0] & 0b00000001;
+  OLETSET = (value[0] >> 4) & 0b00000111;
+  TSETDR = value[1];
+  TSETPA = value[2];
+  BLWSET = value[3] & 0b00001111;
+  RRDEF = (value[3] >> 4) & 0b00000001;
+  FRDEF = (value[3] >> 5) & 0b00000001;
+  ACON = (value[3] >> 6) & 0b00000001;
+  ACMODE = (value[3] >> 7) & 0b00000001;
 }

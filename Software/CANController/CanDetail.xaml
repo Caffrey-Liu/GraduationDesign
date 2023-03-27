@@ -9,8 +9,8 @@
         Title="CanDetail" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.55*"/>
+            <RowDefinition Height="0.45*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -37,8 +37,11 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center">设备类型：</TextBlock>
+                    <ComboBox Grid.Column="1" Margin="10,2" Name="DeviceType"></ComboBox>
                     <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" >设备索引：</TextBlock>
+                    <ComboBox Grid.Column="3" Margin="10,2" Name="DeviceIndex"></ComboBox>
                     <TextBlock Grid.Column="4" TextAlignment="Center" VerticalAlignment="Center" >通道号：</TextBlock>
+                    <ComboBox Grid.Column="5" Margin="10,2" Name="Tunnel"></ComboBox>
                 </Grid>
                 <TextBlock Grid.Row="2" TextAlignment="Center" FontWeight="Bold" FontSize="14" Background="LightGray">初始化CAN参数</TextBlock>
                 <Grid Grid.Row="3" >
@@ -51,9 +54,11 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center">波特率：</TextBlock>
+                    <ComboBox Grid.Column="1" Margin="10,2" Name="BaudRate"></ComboBox>
                     <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" >验收码：</TextBlock>
                     <TextBox Grid.Column="3" Margin="10,3"></TextBox>
                     <TextBlock Grid.Column="4" TextAlignment="Center" VerticalAlignment="Center" >滤波方式：</TextBlock>
+                    <ComboBox Grid.Column="5" Margin="10,2" Name="FilteringMethod"></ComboBox>
                 </Grid>
                 <Grid Grid.Row="4" >
                     <Grid.ColumnDefinitions>
@@ -65,6 +70,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center">模式：</TextBlock>
+                    <ComboBox Grid.Column="1" Margin="10,2" Name="Mode"></ComboBox>
                     <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" >屏蔽码：</TextBlock>
                     <TextBox Grid.Column="3" Margin="10,3"></TextBox>
                 </Grid>
@@ -84,7 +90,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1.1*"/>
             </Grid.RowDefinitions>
@@ -100,27 +106,30 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center">发送格式：</TextBlock>
+                <ComboBox Grid.Column="1" Margin="10,5" Name="SendingType"></ComboBox>
                 <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" >帧格式：</TextBlock>
+                <ComboBox Grid.Column="3" Margin="10,5" Name="FrameForm"></ComboBox>
                 <TextBlock Grid.Column="4" TextAlignment="Center" VerticalAlignment="Center" >帧类型：</TextBlock>
+                <ComboBox Grid.Column="5" Margin="10,5" Name="FrameType"></ComboBox>
                 <Button Grid.Column="6" Margin="30,5">
                     <TextBlock>发送</TextBlock>
                 </Button>
             </Grid>
             <Grid Grid.Row="2" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="0.7*"/>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.4*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center">帧ID：</TextBlock>
-                <TextBox Grid.Column="1" Margin="10"></TextBox>
-                <TextBlock Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" >数据：</TextBlock>
-                <TextBox Grid.Column="3" Margin="10"></TextBox>
-                <TextBlock Grid.Column="4" TextAlignment="Right" VerticalAlignment="Center" >一次发送的帧数：</TextBlock>
-                <TextBox Grid.Column="5" Margin="10"></TextBox>
+                <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center">帧ID：</TextBlock>
+                <TextBox Grid.Column="1" Margin="10,8"></TextBox>
+                <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center" >数据：</TextBlock>
+                <TextBox Grid.Column="3" Margin="10,8"></TextBox>
+                <TextBlock Grid.Column="4" TextAlignment="Center" VerticalAlignment="Center" >一次发送的帧数：</TextBlock>
+                <TextBox Grid.Column="5" Margin="10,8"></TextBox>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">

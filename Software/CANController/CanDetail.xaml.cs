@@ -32,7 +32,11 @@ namespace CANController
             FrameInfo message = e.CanFrameInfo;
             //Console.WriteLine("2号窗收到消息");
             //Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
-            CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   帧数据：" + message.Data + "\n";
+            CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   帧数据：" 
+                + message.Data[0] + message.Data[1] + ' '
+                + message.Data[2] + message.Data[3] + ' '
+                + message.Data[4] + message.Data[5] + ' '
+                + message.Data[6] + message.Data[7] + "\n";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

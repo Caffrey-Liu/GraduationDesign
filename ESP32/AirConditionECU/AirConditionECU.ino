@@ -3,6 +3,7 @@
 
 String value = "";
 AirCondition airCondition;
+PANELMSG01 panelmsg01;
 
 void setup() {
   Serial.begin(9600);
@@ -49,20 +50,11 @@ void receivePacket(){
         value = value + (char)CAN.read();
       }
       Serial.println(value);
-      //控制空调开关指令
-      if (CAN.packetId() == 0x100){
-        airCondition.AirConditionPower();
-        Serial.println("change AirConditionPower");
-      }
-      //控制空调状态指令
-      else if (CAN.packetId() == 0x101){
-        airCondition.AirConditionType(value);
-        Serial.println("change AirConditionType");
-      }
-      //控制空调数值指令
-      else if (CAN.packetId() == 0x102){
-        airCondition.AirConditionRegulate(value);
-        Serial.println("change AirConditionRegulate");
+      //面板指令
+      if (CAN.packetId() == 0x222){
+        panelmsg01.getValue(value);
+        airCondition.changeForPANELMSG01(panelmsg01);
+        Serial.println("According to panelmsg change AirCondition");
       }
     }
   }
@@ -71,25 +63,10 @@ void receivePacket(){
 void sendPacket(){
   Serial.print("Sending packet ... ");
 
-  CAN.beginPacket(0x200);
-  CAN.write(airCondition.power);
-  CAN.endPacket();
-
-  CAN.beginPacket(0x201);
-  CAN.write(airCondition.heatType);
-  CAN.write(airCondition.circulateType);
-  CAN.write(airCondition.backGlassHeat);
-  CAN.write(airCondition.frontGlassHeat);
-  CAN.write(airCondition.windDirection);
-  CAN.endPacket();
-
-  CAN.beginPacket(0x202);
-  CAN.write(airCondition.leftTemperature);
-  CAN.write(airCondition.rightTemperature);
-  CAN.write(airCondition.windSpeed);
-  CAN.endPacket();
+  airCondition.sendACMSG01();
+  airCondition.sendACMSG02();
 
   Serial.println("done");
 
-  delay(1000);
+  delay(250);
 }
