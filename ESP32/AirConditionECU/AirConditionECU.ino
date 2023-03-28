@@ -61,12 +61,12 @@ void receivePacket(){
 }
 
 void sendPacket(){
-  Serial.print("Sending packet ... ");
+  //Serial.print("Sending packet ... ");
 
   airCondition.sendACMSG01();
   airCondition.sendACMSG02();
 
-  Serial.println("done");
+  //Serial.println("done");
 
   delay(250);
 }

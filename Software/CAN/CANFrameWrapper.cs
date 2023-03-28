@@ -29,33 +29,39 @@ namespace CAN
                 //数据帧中数据不能为空
                 if (frameData.Length == 0 && frameType == 0)
                 {
-                    LogHelper.WriteErrorLog("帧数据的长度不能为0");
+                    Console.WriteLine("帧数据的长度不能为0");
+                    //LogHelper.WriteErrorLog("帧数据的长度不能为0");
                     return frameInfo;
                 }
                 else if (frameID.Length == 0)
                 {
-                    LogHelper.WriteErrorLog("帧ID的长度不能为0");
+                    //LogHelper.WriteErrorLog("帧ID的长度不能为0");
+                    Console.WriteLine("帧ID的长度不能为0");
                     return frameInfo;
                 }
                 else if (frameID.Length > 8)
                 {
-                    LogHelper.WriteErrorLog("帧ID的值超过范围");
+                    //LogHelper.WriteErrorLog("帧ID的值超过范围");
+                    Console.WriteLine("帧ID的值超过范围");
                     return frameInfo;
                 }
                 else if (frameData.Length > 24)
                 {
-                    LogHelper.WriteErrorLog("数据长度超过范围，最大长度8个字节");
+                    //LogHelper.WriteErrorLog("数据长度超过范围，最大长度8个字节");
+                    Console.WriteLine("数据长度超过范围，最大长度8个字节");
                     return frameInfo;
                 }
                 else if (frameData.Length % 3 == 1 && frameType == 0)
                 {
-                    LogHelper.WriteErrorLog("帧数据格式不正确");
+                    Console.WriteLine(frameData.Length);
+                    //LogHelper.WriteErrorLog("帧数据格式不正确");
+                    Console.WriteLine("帧数据格式不正确");
                     return frameInfo;
                 }
                 else
                 {
                     string strData = frameData;
-
+                    Console.WriteLine("数据 = " + strData);
                     string[] ss = strData.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     byte[] data = new byte[8];
                     for (int i = 0; i < 8; i++)
@@ -67,7 +73,6 @@ namespace CAN
                             b = 0;
                         data[i] = b;
                     }
-
                     frameInfo[0].DataLen = (byte)(ss.Length);
                     frameInfo[0].Data = data;
                     frameInfo[0].Reserved = new byte[3];

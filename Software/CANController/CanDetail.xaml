@@ -111,7 +111,7 @@
                 <ComboBox Grid.Column="3" Margin="10,5" Name="FrameForm"></ComboBox>
                 <TextBlock Grid.Column="4" TextAlignment="Center" VerticalAlignment="Center" >帧类型：</TextBlock>
                 <ComboBox Grid.Column="5" Margin="10,5" Name="FrameType"></ComboBox>
-                <Button Grid.Column="6" Margin="30,5">
+                <Button Grid.Column="6" Margin="30,5" Click="CAN_SendData">
                     <TextBlock>发送</TextBlock>
                 </Button>
             </Grid>

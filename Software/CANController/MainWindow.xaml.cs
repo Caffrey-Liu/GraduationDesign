@@ -30,9 +30,9 @@ namespace CANController
 
         private static void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
-            Console.WriteLine("收到消息");
+           // Console.WriteLine("收到消息");
             FrameInfo message = e.CanFrameInfo;
-            Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
+            //Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
             //throw new NotImplementedException();
         }
 
@@ -83,6 +83,7 @@ namespace CANController
                 Console.WriteLine("关闭成功");
                 can.ReceviedData -= Can_ReceviedData;
             }
+            can.SendData("00000222", DateTime.Now.ToString(), 0, 0, "61 62 63 64 65 66 67 68", 0);
         }
 
         CanDetail CD = new CanDetail();

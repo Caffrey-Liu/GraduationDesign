@@ -54,5 +54,9 @@ namespace CANController
                 OnPropertyChanged("CurrentProgress");
             }
         }
+
+        private void CAN_SendData(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
