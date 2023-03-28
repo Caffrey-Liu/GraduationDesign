@@ -83,7 +83,7 @@ namespace CANController
                 Console.WriteLine("关闭成功");
                 can.ReceviedData -= Can_ReceviedData;
             }
-            can.SendData("00000222", DateTime.Now.ToString(), 0, 0, "61 62 63 64 65 66 67 68", 0);
+            //can.SendData("00000222", DateTime.Now.ToString(), 0, 0, "61 62 63 64 65 66 67 68", 0);
         }
 
         CanDetail CD = new CanDetail();
@@ -91,6 +91,7 @@ namespace CANController
         private void showCANDetail(object sender, RoutedEventArgs e) {
             if (CDtag == 0)
             {
+                CD.PassDataBetweenForm += new CanDetail.PassDataBetweenFormHandler(sendFrameData);
                 can.ReceviedData += CD.Can_ReceviedData;
                 CD.Show();
                 WindowInteropHelper parentHelper = new WindowInteropHelper(this);
@@ -103,12 +104,18 @@ namespace CANController
             }
             else {
                 can.ReceviedData -= CD.Can_ReceviedData;
+                CD.PassDataBetweenForm -= new CanDetail.PassDataBetweenFormHandler(sendFrameData);
                 CD.Hide();
                 CDtag = 0;
-            }
-          
+            }        
+        }
 
-           
+        private void sendFrameData(object sender, PassDataWinFormEventArgs e)
+        {
+            Console.WriteLine(" ID "+e.frameID + "  Data " + e.frameData);
+            for (int i = 0; i <= e.frameNumber; i++) {
+                can.SendData(e.frameID, DateTime.Now.ToString(), 0, 0, e.frameData, 0);
+            }
         }
     }
 }

@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml.Linq;
 
 namespace CANController
 {
@@ -32,11 +35,11 @@ namespace CANController
             FrameInfo message = e.CanFrameInfo;
             //Console.WriteLine("2号窗收到消息");
             //Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
-            CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   帧数据：" 
-                + message.Data[0] + message.Data[1] + ' '
-                + message.Data[2] + message.Data[3] + ' '
-                + message.Data[4] + message.Data[5] + ' '
-                + message.Data[6] + message.Data[7] + "\n";
+            CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   数据长度：" + message.Data.Length/2 + "   帧数据：";
+            for (int i = 0; i < message.Data.Length; i = i + 2) {
+                CurrentProgress += "" + message.Data[i] + message.Data[i+1] + " ";
+            }
+            CurrentProgress += '\n';
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,9 +57,18 @@ namespace CANController
                 OnPropertyChanged("CurrentProgress");
             }
         }
-
-        private void CAN_SendData(object sender, RoutedEventArgs e)
+        public delegate void PassDataBetweenFormHandler(object sender, PassDataWinFormEventArgs e);
+        public event PassDataBetweenFormHandler PassDataBetweenForm;
+        private void CAN_SendData(object sender, EventArgs e)
         {
+            String frameID, frameData;
+            int frameNumber;
+            Int32.TryParse(FrameNumber.Text, out frameNumber);
+            frameID = FrameID.Text;
+            frameData = FrameData.Text;
+            PassDataWinFormEventArgs args = new PassDataWinFormEventArgs(frameID, frameData, frameNumber);
+
+            PassDataBetweenForm(this, args);
         }
     }
 }

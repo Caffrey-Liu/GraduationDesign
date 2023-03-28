@@ -61,7 +61,6 @@ namespace CAN
                 else
                 {
                     string strData = frameData;
-                    Console.WriteLine("数据 = " + strData);
                     string[] ss = strData.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     byte[] data = new byte[8];
                     for (int i = 0; i < 8; i++)
@@ -79,18 +78,19 @@ namespace CAN
                     frameInfo[0].RemoteFlag = (byte)frameFormat;
                     frameInfo[0].ExternFlag = (byte)frameType;
 
-                    uint canFrameID = 0;
-                    if (!uint.TryParse(frameID,
-                        System.Globalization.NumberStyles.AllowHexSpecifier, null, out canFrameID))
-                        canFrameID = 0;
-                    if (frameInfo[0].ExternFlag == 1)
-                    {
-                        frameInfo[0].ID = canFrameID;
-                    }
-                    else
-                    {
-                        frameInfo[0].ID = canFrameID | 0x0000FFFF;
-                    }
+                    frameInfo[0].ID = Convert.ToUInt32(frameID, 16);
+                    //uint canFrameID = 0;
+                    //if (!uint.TryParse(frameID, System.Globalization.NumberStyles.AllowHexSpecifier, null, out canFrameID))
+                    //    canFrameID = 0;
+                    //Console.WriteLine(canFrameID);
+                    //if (frameInfo[0].ExternFlag == 1)
+                    //{
+                    //    frameInfo[0].ID = canFrameID;
+                    //}
+                    //else
+                    //{
+                    //    frameInfo[0].ID = canFrameID | 0x0000FFFF;
+                    //}
 
                     frameInfo[0].SendType = (byte)frameSendType;
 
