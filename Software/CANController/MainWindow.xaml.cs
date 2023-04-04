@@ -28,12 +28,39 @@ namespace CANController
             InitializeComponent();
         }
 
+        static AirConditionInfo airConditionInfo = new AirConditionInfo();
         private static void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
            // Console.WriteLine("收到消息");
             FrameInfo message = e.CanFrameInfo;
-            //Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
-            //throw new NotImplementedException();
+            if (e.CanFrameInfo.FrameID.Equals("00000101")) {
+                airConditionInfo.STR_TAM("" + message.Data[0] + message.Data[1]);
+                airConditionInfo.STR_TR("" + message.Data[2] + message.Data[3]);
+                airConditionInfo.STR_TE("" + message.Data[4] + message.Data[5] + message.Data[6] + message.Data[7]);
+                airConditionInfo.STR_RH("" + message.Data[8] + message.Data[9] + message.Data[10] + message.Data[11]);
+                airConditionInfo.STR_TS("" + message.Data[12] + message.Data[13]);
+                //Console.WriteLine(airConditionInfo.TAM);
+                //Console.WriteLine(airConditionInfo.TR);
+                //Console.WriteLine(airConditionInfo.TE);
+                //Console.WriteLine(airConditionInfo.RH);
+                //Console.WriteLine(airConditionInfo.TS);
+            }
+            if (e.CanFrameInfo.FrameID.Equals("00000102")) {
+                airConditionInfo.STR_BLMLVL("" + message.Data[1]);
+                airConditionInfo.STR_AIRMIXDR("" + message.Data[2] + message.Data[3]);
+                airConditionInfo.STR_AIRMIXPA("" + message.Data[4] + message.Data[5]);
+                airConditionInfo.STR_INLET("" + message.Data[6] + message.Data[7]);
+                airConditionInfo.STR_OUTLET("" + message.Data[8] + message.Data[9]);
+                airConditionInfo.STR_OUTLETDIR("" + message.Data[10]);
+                airConditionInfo.STR_INLETDIR("" + message.Data[11]);
+                airConditionInfo.STR_RRDEFSTATUS("" + message.Data[13]);
+            }
+            RefreshPanel();
+        }
+
+        private static void RefreshPanel() 
+        {
+            //TODO 将变量和面板连接
         }
 
         //按钮按下改变颜色,各个按钮互不影响

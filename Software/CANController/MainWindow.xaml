@@ -94,8 +94,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Source="./Image/smallfan.png"/>
@@ -108,8 +106,6 @@
                         <Button Grid.Column="6" Background="White" BorderThickness="3" Margin="12,25,12,15" BorderBrush="Black"/>
                         <Button Grid.Column="7" Background="White" BorderThickness="3" Margin="12,20,12,15" BorderBrush="Black"/>
                         <Button Grid.Column="8" Background="White" BorderThickness="3" Margin="12,15,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="9" Background="White" BorderThickness="3" Margin="12,10,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="10" Background="White" BorderThickness="3" Margin="12,5,12,15" BorderBrush="Black"/>
                     </Grid>
                 </Border>
                 <Border Grid.Column="2" Style="{StaticResource BorderStyle}">

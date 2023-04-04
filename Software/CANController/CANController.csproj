@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AirConditionInfo.cs" />
     <Compile Include="PassInfo.cs" />
     <Compile Include="Win32Native.cs" />
     <Page Include="CanDetail.xaml">

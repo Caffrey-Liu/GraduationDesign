@@ -139,7 +139,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" TextAlignment="Center" FontWeight="Bold" FontSize="14" Background="LightGray" VerticalAlignment="Center">信息</TextBlock>
             <ScrollViewer Grid.Row="1">
-                <TextBlock x:Name="test" Text ="{Binding CurrentProgress, ElementName=CANInfo, Mode=OneWay}">
+                <TextBlock Text ="{Binding CurrentProgress, ElementName=CANInfo, Mode=OneWay}">
 
                 </TextBlock>
             </ScrollViewer>

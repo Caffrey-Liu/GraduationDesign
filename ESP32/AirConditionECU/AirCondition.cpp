@@ -7,10 +7,10 @@ AirCondition::AirCondition(){
 void AirCondition::Init(){
   TAM = 201;
   TR = 150;
-  TE[0] = 164;
-  TE[1] = 1;
-  RH[0] = char(69);
-  RH[1] = char(1);
+  TE[0] = 1;
+  TE[1] = 164;
+  RH[0] = char(1);
+  RH[1] = char(69);
   TS = 63;
 
   BLMLVL = 0;
