@@ -15,21 +15,250 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Interop;
+using System.ComponentModel;
 
 namespace CANController
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        static AirConditionInfo airConditionInfo = new AirConditionInfo();
-        private static void Can_ReceviedData(object sender, CANFrameInfoArgs e)
+        #region 定义各种面板变量,实现接口
+        public AirConditionInfo airConditionInfo = new AirConditionInfo();
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string PropertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        private String _OutCyclePath = "./Image/OutCycle_off.png";
+        public String OutCyclePath
+        {
+            get { return _OutCyclePath; }
+            set
+            {
+                _OutCyclePath = value;
+                OnPropertyChanged("OutCyclePath");
+            }
+        }
+
+        private String _InnerCyclePath = "./Image/InnerCycle_off.png";
+        public String InnerCyclePath
+        {
+            get { return _InnerCyclePath; }
+            set
+            {
+                _InnerCyclePath = value;
+                OnPropertyChanged("InnerCyclePath");
+            }
+        }
+
+        private String _FrontGlassPath = "./Image/FrontGlass_off.png";
+        public String FrontGlassPath
+        {
+            get { return _FrontGlassPath; }
+            set
+            {
+                _FrontGlassPath = value;
+                OnPropertyChanged("FrontGlassPath");
+            }
+        }
+
+        private String _BackGlassPath = "./Image/BackGlass_off.png";
+        public String BackGlassPath
+        {
+            get { return _BackGlassPath; }
+            set
+            {
+                _BackGlassPath = value;
+                OnPropertyChanged("BackGlassPath");
+            }
+        }
+        private String _PowerPath = "./Image/Power_off.png";
+        public String PowerPath
+        {
+            get { return _PowerPath; }
+            set
+            {
+                _PowerPath = value;
+                OnPropertyChanged("PowerPath");
+            }
+        }
+        private String _FacePath = "./Image/Face_off.png";
+        public String FacePath
+        {
+            get { return _FacePath; }
+            set
+            {
+                _FacePath = value;
+                OnPropertyChanged("FacePath");
+            }
+        }
+        private String _BLPath = "./Image/BL_off.png";
+        public String BLPath
+        {
+            get { return _BLPath; }
+            set
+            {
+                _BLPath = value;
+                OnPropertyChanged("BLPath");
+            }
+        }
+        private String _FootPath = "./Image/Foot_off.png";
+        public String FootPath
+        {
+            get { return _FootPath; }
+            set
+            {
+                _FootPath = value;
+                OnPropertyChanged("FootPath");
+            }
+        }
+        private String _FDPath = "./Image/FD_off.png";
+        public String FDPath
+        {
+            get { return _FDPath; }
+            set
+            {
+                _FDPath = value;
+                OnPropertyChanged("FDPath");
+            }
+        }
+        private String _BLWPath = "./Image/BLW0.png";
+        public String BLWPath
+        {
+            get { return _BLWPath; }
+            set
+            {
+                _BLWPath = value;
+                OnPropertyChanged("BLWPath");
+            }
+        }
+        #endregion
+        private void RefreshPanel()
+        {
+            //刷新电源
+            if (airConditionInfo.POWER == 0)
+            {
+                PowerPath = "./Image/Power_off.png";
+            }
+            else {
+                PowerPath = "./Image/Power_on.png";
+            }
+            //刷新内循环外循环
+            if (airConditionInfo.POWER == 0) {
+                InnerCyclePath = "./Image/InnerCycle_off.png";
+                OutCyclePath = "./Image/OutCycle_off.png";
+            }
+            else if (airConditionInfo.INLETDIR == 0){
+                InnerCyclePath = "./Image/InnerCycle_on.png";
+                OutCyclePath = "./Image/OutCycle_off.png";
+            }
+            else {
+                InnerCyclePath = "./Image/InnerCycle_off.png";
+                OutCyclePath = "./Image/OutCycle_on.png";
+            }
+            //刷新风向
+            if (airConditionInfo.RRDEFSTATUS == 0)
+            {
+                BackGlassPath = "./Image/BackGlass_off.png";
+            }
+            else {
+                BackGlassPath = "./Image/BackGlass_on.png";
+            }
+            if (airConditionInfo.POWER == 0)
+            {
+                FacePath = "./Image/Face_off.png";
+                BLPath = "./Image/BL_off.png";
+                FootPath = "./Image/Foot_off.png";
+                FDPath = "./Image/FD_off.png";
+                FrontGlassPath = "./Image/FrontGlass_off.png";
+            }
+            else
+            {
+                if (airConditionInfo.OUTLETDIR == 0)
+                {
+                    FacePath = "./Image/Face_on.png";
+                    BLPath = "./Image/BL_off.png";
+                    FootPath = "./Image/Foot_off.png";
+                    FDPath = "./Image/FD_off.png";
+                    FrontGlassPath = "./Image/FrontGlass_off.png";
+                }
+                if (airConditionInfo.OUTLETDIR == 1)
+                {
+                    FacePath = "./Image/Face_off.png";
+                    BLPath = "./Image/BL_on.png";
+                    FootPath = "./Image/Foot_off.png";
+                    FDPath = "./Image/FD_off.png";
+                    FrontGlassPath = "./Image/FrontGlass_off.png";
+                }
+                if (airConditionInfo.OUTLETDIR == 2)
+                {
+                    FacePath = "./Image/Face_off.png";
+                    BLPath = "./Image/BL_off.png";
+                    FootPath = "./Image/Foot_on.png";
+                    FDPath = "./Image/FD_off.png";
+                    FrontGlassPath = "./Image/FrontGlass_off.png";
+                }
+                if (airConditionInfo.OUTLETDIR == 3)
+                {
+                    FacePath = "./Image/Face_off.png";
+                    BLPath = "./Image/BL_off.png";
+                    FootPath = "./Image/Foot_off.png";
+                    FDPath = "./Image/FD_on.png";
+                    FrontGlassPath = "./Image/FrontGlass_off.png";
+                }
+                if (airConditionInfo.OUTLETDIR == 4)
+                {
+                    FacePath = "./Image/Face_off.png";
+                    BLPath = "./Image/BL_off.png";
+                    FootPath = "./Image/Foot_off.png";
+                    FDPath = "./Image/FD_off.png";
+                    FrontGlassPath = "./Image/FrontGlass_on.png";
+                }
+            }
+            //刷新风速
+            if (airConditionInfo.BLMLVL == 0) 
+            {
+                BLWPath = "./Image/BLW0.png";
+            }
+            if (airConditionInfo.BLMLVL == 1)
+            {
+                BLWPath = "./Image/BLW1.png";
+            }
+            if (airConditionInfo.BLMLVL == 2)
+            {
+                BLWPath = "./Image/BLW2.png";
+            }
+            if (airConditionInfo.BLMLVL == 3)
+            {
+                BLWPath = "./Image/BLW3.png";
+            }
+            if (airConditionInfo.BLMLVL == 4)
+            {
+                BLWPath = "./Image/BLW4.png";
+            }
+            if (airConditionInfo.BLMLVL == 5)
+            {
+                BLWPath = "./Image/BLW5.png";
+            }
+            if (airConditionInfo.BLMLVL == 6)
+            {
+                BLWPath = "./Image/BLW6.png";
+            }
+            if (airConditionInfo.BLMLVL == 7)
+            {
+                BLWPath = "./Image/BLW7.png";
+            }
+        }
+
+        private void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
            // Console.WriteLine("收到消息");
             FrameInfo message = e.CanFrameInfo;
@@ -57,27 +286,14 @@ namespace CANController
             }
             RefreshPanel();
         }
-
-        private static void RefreshPanel() 
-        {
-            //TODO 将变量和面板连接
-        }
-
-        //按钮按下改变颜色,各个按钮互不影响
-        Dictionary<string, int> tags = new Dictionary<string, int>();
+        PanelMSG panelMSG = new PanelMSG();
         CANhelper can = new CANhelper();
+        int firstTime = 0;
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            int tag;
-            if (tags.ContainsKey(btn.Name)){
-                tag = (tags[btn.Name] + 1) % 2;
-                tags[btn.Name] = tag;
-            }
-            else {
-                tag = 1;
-                tags.Add(btn.Name, tag);
-                if (btn.Name.Equals("power")) {
+            if (btn.Name.Equals("power") && firstTime == 0) 
+            {
                     can.CanSetting.SetCAN((uint)0, //deviceIndex 设备索引号
                                                   (byte)0, //canIndex CAN的路索引号
                                                   (byte)CanFilterType.DualFilter, //filterType 过滤类型
@@ -86,31 +302,92 @@ namespace CANController
                                                   "FFFFFFFF", //canMask 掩码
                                                   "00", //时间高位
                                                   "1C"); //时间低位,默认 00 1C 500Mps
+                    firstTime = 1;
+            }         
+            if (firstTime != 0 )
+            {
+                if(!((airConditionInfo.POWER == 0) && (!btn.Name.Equals("power"))))
+                {
+                    panelMSG.getValueFromAirConditionInfo(airConditionInfo, (char)airConditionInfo.POWER);
+                    if (!btn.Name.Equals("power"))
+                    {
+                        if (btn.Name.Equals("InnerCycle") || btn.Name.Equals("OutCycle"))
+                        {
+                            panelMSG.ILETSET = (char)((panelMSG.ILETSET + 1) % 2);
+                        }
+                        if (btn.Name.Equals("BackGlass")) 
+                        {
+                            panelMSG.RRDEF = (char)((panelMSG.RRDEF + 1) % 2);
+                        }
+                        if (btn.Name.Equals("Face")) {
+                            panelMSG.OLETSET = (char)0;
+                            panelMSG.FRDEF = (char)0;
+                        }
+                        if (btn.Name.Equals("BL"))
+                        {
+                            panelMSG.OLETSET = (char)1;
+                            panelMSG.FRDEF = (char)0;
+                        }
+                        if (btn.Name.Equals("Foot"))
+                        {
+                            panelMSG.OLETSET = (char)2;
+                            panelMSG.FRDEF = (char)0;
+                        }
+                        if (btn.Name.Equals("FD"))
+                        {
+                            panelMSG.OLETSET = (char)3;
+                            panelMSG.FRDEF = (char)1;
+                        }
+                        if (btn.Name.Equals("FrontGlass"))
+                        {
+                            if (panelMSG.OLETSET != 4 && panelMSG.FRDEF != 1)
+                            {
+                                panelMSG.OLETSET = (char)4;
+                                panelMSG.FRDEF = (char)1;
+                            }
+                            else{
+                                panelMSG.OLETSET = (char)0;
+                                panelMSG.FRDEF = (char)0;
+                            }
+                        }
+                        if (btn.Name.Equals("BigFan") && panelMSG.BLWSET < 7) {
+                            panelMSG.BLWSET = (char)(panelMSG.BLWSET + 1);
+                        }
+                        if (btn.Name.Equals("SmallFan") && panelMSG.BLWSET > 0)
+                        {
+                            panelMSG.BLWSET = (char)(panelMSG.BLWSET - 1);
+                        }
+                    }
+                    else
+                    {
+                        if (airConditionInfo.POWER == 0)
+                        {
+                            airConditionInfo.POWER = 1;
+                            can.ConnectCANDevice(); //连接CAN设备
+                            Console.WriteLine("连接成功");
+                            can.StartCAN(); //启动CAN设备
+                            Console.WriteLine("启动成功");
+                            can.ReceviedData += Can_ReceviedData;
+                        }
+                        else
+                        {
+                            airConditionInfo.POWER = 0;
+                            can.CloseCANDevice();
+                            Console.WriteLine("关闭成功");
+                            can.ReceviedData -= Can_ReceviedData;
+                            airConditionInfo = new AirConditionInfo();
+                            RefreshPanel();
+                        }
+                    }
+                    buttonSendFrameData();
                 }
             }
-            if (tag == 0) { 
-                btn.Background = new SolidColorBrush(Colors.White);
-                Console.WriteLine(btn.Name + "关闭");
-            }    
-            else{
-                //btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#18dcff"));
-                btn.Background = new SolidColorBrush(Colors.LightSkyBlue);
-                Console.WriteLine(btn.Name + "开启");
-            }
-            if (btn.Name.Equals("power") && tags[btn.Name] == 1) {
-                can.ConnectCANDevice(); //连接CAN设备
-                Console.WriteLine("连接成功");
-                can.StartCAN(); //启动CAN设备
-                Console.WriteLine("启动成功");
-                can.ReceviedData += Can_ReceviedData;
-            }
-            if (btn.Name.Equals("power") && tags[btn.Name] == 0) {
-                //can.ResetCANDevice();
-                can.CloseCANDevice();
-                Console.WriteLine("关闭成功");
-                can.ReceviedData -= Can_ReceviedData;
-            }
-            //can.SendData("00000222", DateTime.Now.ToString(), 0, 0, "61 62 63 64 65 66 67 68", 0);
+        }
+        private void buttonSendFrameData()
+        {
+            string str = panelMSG.getCANFrameData();
+            Console.WriteLine("发送   ID = " + "00000222" + "  Data = " + str);
+            can.SendData("00000222", DateTime.Now.ToString(), 0, 0, str, 0);
         }
 
         CanDetail CD = new CanDetail();
@@ -139,7 +416,7 @@ namespace CANController
 
         private void sendFrameData(object sender, PassDataWinFormEventArgs e)
         {
-            Console.WriteLine(" ID "+e.frameID + "  Data " + e.frameData);
+            Console.WriteLine("发送   ID = "+e.frameID + "  Data = " + e.frameData);
             for (int i = 0; i <= e.frameNumber; i++) {
                 can.SendData(e.frameID, DateTime.Now.ToString(), 0, 0, e.frameData, 0);
             }

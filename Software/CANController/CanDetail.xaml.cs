@@ -47,13 +47,13 @@ namespace CANController
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
-        private String currentProgress = "";
+        private String _CurrentProgress = "";
         public String CurrentProgress
         {
-            get { return currentProgress; }
+            get { return _CurrentProgress; }
             set
             {
-                currentProgress = value;
+                _CurrentProgress = value;
                 OnPropertyChanged("CurrentProgress");
             }
         }

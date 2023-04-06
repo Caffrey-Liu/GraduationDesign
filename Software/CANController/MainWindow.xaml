@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
+        x:Name="Panel"
         Title="空调仿真ECU" Height="720" Width="1280">
     <Window.Resources>
+        <Image x:Key="OutCycle_off" Source="./Image/OutCycle.png" Opacity="0.8" Margin="10"/>
+        <Image x:Key="OutCycle_on" Source="./Image/heat.png" Opacity="0.8" Margin="10"/>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="15"/>
             <Setter Property="Background" Value="White"/>
@@ -75,37 +78,27 @@
                             <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="1" x:Name="FrontGlass" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/FrontGlass.png" Opacity="0.8" Margin="10"/>
+                            <Image Source="{Binding FrontGlassPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
                         <Button Grid.Column="2" x:Name="BackGlass" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/BackGlass.png" Opacity="0.8" Margin="10"/>
+                            <Image Source="{Binding BackGlassPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
                     </Grid>
                 </Border>
                 <Border Grid.Column="1" Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.4*"/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.4*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="./Image/smallfan.png"/>
-                        <Image Grid.Column="11" Source="./Image/bigfan.png"/>
-                        <Button Grid.Column="1" Background="White" BorderThickness="3" Margin="12,50,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="2" Background="White" BorderThickness="3" Margin="12,45,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="3" Background="White" BorderThickness="3" Margin="12,40,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="4" Background="White" BorderThickness="3" Margin="12,35,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="5" Background="White" BorderThickness="3" Margin="12,30,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="6" Background="White" BorderThickness="3" Margin="12,25,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="7" Background="White" BorderThickness="3" Margin="12,20,12,15" BorderBrush="Black"/>
-                        <Button Grid.Column="8" Background="White" BorderThickness="3" Margin="12,15,12,15" BorderBrush="Black"/>
+                        <Button Grid.Column="0" x:Name="SmallFan" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick" Margin="30,15,30,15">
+                            <Image Source="./Image/smallfan.png"/>
+                        </Button>
+                        <Image Grid.Column="1" Source="{Binding BLWPath, ElementName=Panel, Mode=OneWay}"/>
+                        <Button Grid.Column="2" x:Name="BigFan" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick" Margin="30,15,30,15">
+                            <Image Source="./Image/bigfan.png"/>
+                        </Button>
                     </Grid>
                 </Border>
                 <Border Grid.Column="2" Style="{StaticResource BorderStyle}">
@@ -116,11 +109,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="1" x:Name="OutCycle" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/OutCycle.png" Opacity="0.8" Margin="10"/>
+                        <Button Grid.Column="1" x:Name="OutCycle" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick" >
+                            <Image Source="{Binding OutCyclePath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10">
+                            </Image>
                         </Button>
                         <Button Grid.Column="2" x:Name="InnerCycle" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/InnerCycle.png" Opacity="0.8" Margin="10"/>
+                            <Image Source="{Binding InnerCyclePath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
                     </Grid>
                 </Border>
@@ -171,16 +165,20 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                             <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="1" x:Name="windDirection0" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/up.png" Opacity="0.8" Margin="10"/>
+                        <Button Grid.Column="1" x:Name="Face" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
+                            <Image Source="{Binding FacePath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
-                        <Button Grid.Column="2" x:Name="windDirection1" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/mid.png" Opacity="0.8" Margin="10"/>
+                        <Button Grid.Column="2" x:Name="BL" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
+                            <Image Source="{Binding BLPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
-                        <Button Grid.Column="3" x:Name="windDirection2" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/low.png" Opacity="0.8" Margin="10"/>
+                        <Button Grid.Column="3" x:Name="Foot" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
+                            <Image Source="{Binding FootPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
+                        </Button>
+                        <Button Grid.Column="4" x:Name="FD" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
+                            <Image Source="{Binding FDPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="10"/>
                         </Button>
                     </Grid>
                 </Border>
@@ -196,9 +194,8 @@
                         <Button Grid.Column="1" x:Name="heatType0" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
                             <Image Source="./Image/heat.png" Opacity="0.8" Margin="10"/>
                         </Button>
-                        <Button Grid.Column="2" x:Name="power" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
-                            <Image Source="./Image/power.png" Opacity="0.8" Margin="3
-                                   "/>
+                        <Button Grid.Column="2" x:Name="power" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick" Margin="30,15,30,15">
+                           <Image Source="{Binding PowerPath, ElementName=Panel, Mode=OneWay}" Opacity="0.8" Margin="3"/>
                         </Button>
                         <Button Grid.Column="3" x:Name="heatType1" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick">
                             <Image Source="./Image/cold.png" Opacity="0.8" Margin="10"/>
@@ -214,7 +211,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" x:Name="CANDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
-                            
+
                         </Button>
                         <Image Grid.Column="1" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
                         <Grid Grid.Column="2">

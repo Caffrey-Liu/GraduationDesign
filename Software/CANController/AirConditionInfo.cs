@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CANController
 {
-    internal class AirConditionInfo
+    public class AirConditionInfo
     {
         public double TAM;
         public double TR;
@@ -22,6 +22,8 @@ namespace CANController
         public int INLETDIR;
         public int OUTLETDIR;
         public int RRDEFSTATUS;
+
+        public int POWER = 0;
 
         #region MSG01属性转化方法
         public void STR_TAM(String str) {

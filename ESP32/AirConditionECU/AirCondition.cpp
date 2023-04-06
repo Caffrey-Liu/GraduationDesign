@@ -25,8 +25,9 @@ void AirCondition::Init(){
 
 void AirCondition::changeForPANELMSG01(PANELMSG01 panelmsg01){
   BLMLVL = panelmsg01.BLWSET;
-  INLET = panelmsg01.ILETSET;
-  OUTLET = panelmsg01.OLETSET;
+  INLETDIR = panelmsg01.ILETSET;
+  Serial.println((int)INLETDIR);
+  OUTLETDIR = panelmsg01.OLETSET;
   RRDEFSTATUS = panelmsg01.RRDEF;
   //FRDEF
   //ACON
@@ -56,7 +57,7 @@ void AirCondition::sendACMSG02(){
   CAN.write(INLET);
   CAN.write(OUTLET);
   temp = 0b01110000 & (OUTLETDIR <<4);
-  temp = temp & INLETDIR;
+  temp = temp + INLETDIR;
   CAN.write(temp);
   temp = 0b00000001 & RRDEFSTATUS;
   CAN.write(temp);

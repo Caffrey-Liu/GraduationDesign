@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AirConditionInfo.cs" />
+    <Compile Include="PanelMSG.cs" />
     <Compile Include="PassInfo.cs" />
     <Compile Include="Win32Native.cs" />
     <Page Include="CanDetail.xaml">
@@ -117,18 +118,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\FrontGlass.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\BackGlass.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\InnerCycle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\OutCycle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Image\panel1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -138,14 +127,8 @@
     <Resource Include="Image\panel3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\low.png" />
-    <Resource Include="Image\mid.png" />
-    <Resource Include="Image\up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Image\cold.png" />
     <Resource Include="Image\heat.png" />
-    <Resource Include="Image\power.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\bigfan.png" />
@@ -159,6 +142,84 @@
       <Project>{a824d3c8-af74-487e-a4d9-09aea5739656}</Project>
       <Name>CAN</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\InnerCycle_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\InnerCycle_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\OutCycle_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\OutCycle_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BackGlass_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BackGlass_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\FrontGlass_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\FrontGlass_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Power_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Power_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BL_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BL_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Face_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Face_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\FD_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\FD_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Foot_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Foot_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BLW1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
