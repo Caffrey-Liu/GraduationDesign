@@ -413,6 +413,27 @@ namespace CANController
                 CDtag = 0;
             }        
         }
+        
+        DBCDetail DD = new DBCDetail();
+        int DDtag = 0;
+        private void showDBCDetail(object sender, RoutedEventArgs e)
+        {
+            if (DDtag == 0)
+            {
+                DD.Show();
+                WindowInteropHelper parentHelper = new WindowInteropHelper(this);
+                WindowInteropHelper childHelper = new WindowInteropHelper(DD);
+                Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
+
+                DD.WindowState = WindowState.Normal;
+                DDtag = 1;
+            }
+            else
+            {
+                DD.Hide();
+                DDtag = 0;
+            }
+        }
 
         private void sendFrameData(object sender, PassDataWinFormEventArgs e)
         {

@@ -1,0 +1,233 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: FRANTECU ACCMP ENGINE PANEL ACECU
+VAL_TABLE_ TB_COMP_STATUS 3 "Fault" 2 "Run" 1 "Stop" 0 "Standby" ;
+VAL_TABLE_ TB_ACMODE 1 "AUTO" 0 "MANUAL" ;
+VAL_TABLE_ TB_ON_OFF 1 "ON" 0 "OFF" ;
+VAL_TABLE_ TB_OUTLET_DIR 4 "DEF" 3 "F/D" 2 "Foot" 1 "B/L" 0 "Face" ;
+VAL_TABLE_ TB_INLET_DIR 1 "FRESH AIR" 0 "RECYCLING AIR" ;
+VAL_TABLE_ TB_BLW_LVL 7 "HI" 6 "M5" 5 "M4" 4 "M3" 3 "M2" 2 "M1" 1 "LO" 0 "OFF" ;
+
+
+BO_ 819 ACCMPMSG01: 8 ACCMP
+ SG_ RCOMP : 7|16@0+ (1,0) [0|65535] "rpm"  ACECU,PANEL
+ SG_ COMPSTATUS : 17|2@0+ (1,0) [0|3] ""  ACECU,PANEL
+
+BO_ 768 FRNMSG01: 8 FRANTECU
+ SG_ TSin : 55|8@0+ (17.5,0) [0|4448] "w/m^2"  ACECU,PANEL
+ SG_ TRRAW : 13|10@0+ (1,0) [0|1023] ""  ACECU,PANEL
+ SG_ TERAW : 19|10@0+ (1,0) [0|1023] ""  ACECU,PANEL
+ SG_ TAMRAW : 7|10@0+ (1,0) [0|1023] ""  ACECU,PANEL
+ SG_ RHRAW : 25|10@0+ (1,0) [0|1023] ""  ACECU,PANEL
+
+BO_ 96 ENGMSG01: 4 ENGINE
+ SG_ TW : 31|8@0+ (0.5,0) [16|127.5] "¡æ"  ACECU,PANEL
+ SG_ ENGSPF : 15|16@0+ (1,0) [0|65535] "rpm"  ACECU,PANEL
+ SG_ ENGID : 7|8@0+ (1,0) [0|0] ""  ACECU,PANEL
+
+BO_ 546 PANELMSG01: 8 PANEL
+ SG_ TSETPA : 16|8@1+ (0.5,17.5) [17.5|32.5] "¡æ"  ACECU
+ SG_ TSETDR : 8|8@1+ (0.5,17.5) [17.5|32.5] "¡æ"  ACECU
+ SG_ RRDEF : 28|1@1+ (1,0) [0|1] ""  ACECU
+ SG_ OLETSET : 4|3@1+ (1,0) [0|4] ""  ACECU
+ SG_ ILETSET : 0|1@1+ (1,0) [0|1] ""  ACECU
+ SG_ FRDEF : 29|1@1+ (1,0) [0|1] ""  ACECU
+ SG_ BLMSET : 24|4@1+ (1,0) [0|7] ""  ACECU
+ SG_ ACON : 30|1@1+ (1,0) [0|1] ""  ACECU
+ SG_ ACMODE : 31|1@1+ (1,0) [0|1] ""  ACECU
+
+BO_ 258 ACMSG02: 8 ACECU
+ SG_ RRDEFSTATUS : 48|1@1+ (1,0) [0|1] ""  PANEL
+ SG_ OUTLETDIR : 44|3@1+ (1,0) [0|4] ""  PANEL
+ SG_ OUTLET : 32|8@1+ (0.5,-14) [-14|113.5] "%"  PANEL
+ SG_ INLETDIR : 40|1@1+ (1,0) [0|1] ""  PANEL
+ SG_ INLET : 24|8@1+ (0.5,-14) [-14|113.5] "%"  PANEL
+ SG_ BLMLVL : 0|4@1+ (1,0) [0|7] ""  PANEL
+ SG_ AIRMIXPA : 16|8@1+ (0.5,-14) [-14|113.5] "%"  PANEL
+ SG_ AIRMIXDR : 8|8@1+ (0.5,-14) [-14|113.5] "%"  PANEL
+
+BO_ 257 ACMSG01: 8 ACECU
+ SG_ TS : 48|8@1+ (17.5,0) [0|4448] "w/m^2"  PANEL
+ SG_ TR : 8|8@1+ (0.25,-6.5) [-6.5|57.25] "¡æ"  PANEL
+ SG_ TE : 16|16@1+ (0.1,-30) [-30|60] "¡æ"  PANEL
+ SG_ TAM : 0|8@1+ (0.32,-30.8) [-30.8|50.8] "¡æ"  PANEL
+ SG_ RH : 32|16@1+ (0.16,10) [10|90] "%"  PANEL
+
+
+
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NmStationAddress" HEX 0 0;
+BA_DEF_  "GenNWMApBusSleep" STRING ;
+BA_DEF_  "GenNWMApCanNormal" STRING ;
+BA_DEF_  "GenNWMApCanOff" STRING ;
+BA_DEF_  "GenNWMApCanOn" STRING ;
+BA_DEF_  "GenNWMApCanSleep" STRING ;
+BA_DEF_  "GenNWMApCanWakeUp" STRING ;
+BA_DEF_  "GenNWMGotoMode_Awake" STRING ;
+BA_DEF_  "GenNWMGotoMode_BusSleep" STRING ;
+BA_DEF_  "GenNWMSleepTime" INT 0 1000000;
+BA_DEF_  "GenNWMTalkNM" STRING ;
+BA_DEF_ BU_  "GenNodSleepTime" INT 0 1000000;
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmNode" ENUM  "No","Yes";
+BA_DEF_ SG_  "NWM-WakeupAllowed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 2 50000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 1 1000;
+BA_DEF_ BO_  "GenMsgNrOfRepetitions" INT 1 999999;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","spontaneous","cyclicIfActive","spontaneousWithDelay","cyclicAndSpontaneous","cyclicAndSpontaneousWithDelay","spontaneousWithRepetition","cyclicIfActiveAndSpontaneousWD";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "spontaneous";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ EV_  "GenEnvControlType" ENUM  "NoControl","SliderHoriz","SliderVert","PushButton","Edit","BitmapSwitch";
+BA_DEF_ EV_  "GenEnvMsgName" STRING ;
+BA_DEF_ EV_  "GenEnvMsgOffset" INT 0 999999999;
+BA_DEF_ EV_  "GenEnvAutoGenCtrl" ENUM  "No","Yes";
+BA_DEF_  "GenEnvVarEndingDsp" STRING ;
+BA_DEF_  "GenEnvVarEndingSnd" STRING ;
+BA_DEF_  "GenEnvVarPrefix" STRING ;
+BA_DEF_ BO_  "GenMsgAltSetting" STRING ;
+BA_DEF_ BO_  "GenMsgAutoGenDsp" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgConditionalSend" STRING ;
+BA_DEF_ BO_  "GenMsgEVName" STRING ;
+BA_DEF_ BO_  "GenMsgPostIfSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPostSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPreIfSetting" STRING ;
+BA_DEF_ BO_  "GenMsgPreSetting" STRING ;
+BA_DEF_ BU_  "GenNodAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigAltSetting" STRING ;
+BA_DEF_ SG_  "GenSigAssignSetting" STRING ;
+BA_DEF_ SG_  "GenSigAutoGenDsp" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigAutoGenSnd" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigConditionalSend" STRING ;
+BA_DEF_ SG_  "GenSigEnvVarType" ENUM  "int","float","undef";
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigPostIfSetting" STRING ;
+BA_DEF_ SG_  "GenSigPostSetting" STRING ;
+BA_DEF_ SG_  "GenSigPreIfSetting" STRING ;
+BA_DEF_ SG_  "GenSigPreSetting" STRING ;
+BA_DEF_ SG_  "GenSigReceiveSetting" STRING ;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "GenNWMApBusSleep" "apBusSleep()";
+BA_DEF_DEF_  "GenNWMApCanNormal" "apCanNormal()";
+BA_DEF_DEF_  "GenNWMApCanOff" "apCanOff()";
+BA_DEF_DEF_  "GenNWMApCanOn" "apCanOn()";
+BA_DEF_DEF_  "GenNWMApCanSleep" "apCanSleep()";
+BA_DEF_DEF_  "GenNWMApCanWakeUp" "apCanWakeUp()";
+BA_DEF_DEF_  "GenNWMGotoMode_Awake" "GotoMode_Awake()";
+BA_DEF_DEF_  "GenNWMGotoMode_BusSleep" "GotoMode_BusSleep()";
+BA_DEF_DEF_  "GenNWMSleepTime" 0;
+BA_DEF_DEF_  "GenNWMTalkNM" "TalkNM()";
+BA_DEF_DEF_  "GenNodSleepTime" 0;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "NmNode" "No";
+BA_DEF_DEF_  "NWM-WakeupAllowed" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "GenMsgCycleTime" 100;
+BA_DEF_DEF_  "GenMsgDelayTime" 1;
+BA_DEF_DEF_  "GenMsgNrOfRepetitions" 1;
+BA_DEF_DEF_  "GenMsgSendType" "";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenEnvControlType" "";
+BA_DEF_DEF_  "GenEnvMsgName" "";
+BA_DEF_DEF_  "GenEnvMsgOffset" 0;
+BA_DEF_DEF_  "GenEnvAutoGenCtrl" "No";
+BA_DEF_DEF_  "GenEnvVarEndingDsp" "Dsp_";
+BA_DEF_DEF_  "GenEnvVarEndingSnd" "_";
+BA_DEF_DEF_  "GenEnvVarPrefix" "Env";
+BA_DEF_DEF_  "GenMsgAltSetting" "";
+BA_DEF_DEF_  "GenMsgAutoGenDsp" "";
+BA_DEF_DEF_  "GenMsgAutoGenSnd" "";
+BA_DEF_DEF_  "GenMsgConditionalSend" "";
+BA_DEF_DEF_  "GenMsgEVName" "";
+BA_DEF_DEF_  "GenMsgPostIfSetting" "";
+BA_DEF_DEF_  "GenMsgPostSetting" "";
+BA_DEF_DEF_  "GenMsgPreIfSetting" "";
+BA_DEF_DEF_  "GenMsgPreSetting" "";
+BA_DEF_DEF_  "GenNodAutoGenSnd" "";
+BA_DEF_DEF_  "GenSigAltSetting" "";
+BA_DEF_DEF_  "GenSigAssignSetting" "";
+BA_DEF_DEF_  "GenSigAutoGenDsp" "";
+BA_DEF_DEF_  "GenSigAutoGenSnd" "";
+BA_DEF_DEF_  "GenSigConditionalSend" "";
+BA_DEF_DEF_  "GenSigEnvVarType" "undef";
+BA_DEF_DEF_  "GenSigEVName" "";
+BA_DEF_DEF_  "GenSigPostIfSetting" "";
+BA_DEF_DEF_  "GenSigPostSetting" "";
+BA_DEF_DEF_  "GenSigPreIfSetting" "";
+BA_DEF_DEF_  "GenSigPreSetting" "";
+BA_DEF_DEF_  "GenSigReceiveSetting" "";
+BA_ "GenMsgCycleTime" BO_ 96 50;
+BA_ "GenMsgCycleTime" BO_ 258 250;
+BA_ "GenMsgCycleTime" BO_ 257 250;
+BA_ "GenSigStartValue" SG_ 819 RCOMP 0;
+BA_ "GenSigStartValue" SG_ 768 TSin 0;
+BA_ "GenSigStartValue" SG_ 768 TRRAW 0;
+BA_ "GenSigStartValue" SG_ 768 TERAW 0;
+BA_ "GenSigStartValue" SG_ 768 TAMRAW 0;
+BA_ "GenSigStartValue" SG_ 768 RHRAW 0;
+BA_ "GenSigStartValue" SG_ 96 TW 32;
+BA_ "GenSigStartValue" SG_ 96 ENGSPF 0;
+BA_ "GenSigStartValue" SG_ 96 ENGID 170;
+BA_ "GenSigStartValue" SG_ 546 TSETPA 15;
+BA_ "GenSigStartValue" SG_ 546 TSETDR 15;
+BA_ "GenSigStartValue" SG_ 546 BLMSET 0;
+BA_ "GenSigStartValue" SG_ 258 OUTLET 28;
+BA_ "GenSigStartValue" SG_ 258 INLET 28;
+BA_ "GenSigStartValue" SG_ 258 BLMLVL 0;
+BA_ "GenSigStartValue" SG_ 258 AIRMIXPA 28;
+BA_ "GenSigStartValue" SG_ 258 AIRMIXDR 28;
+BA_ "GenSigStartValue" SG_ 257 TS 0;
+BA_ "GenSigStartValue" SG_ 257 TR 26;
+BA_ "GenSigStartValue" SG_ 257 TE 300;
+BA_ "GenSigStartValue" SG_ 257 TAM 96.25;
+VAL_ 819 COMPSTATUS 3 "Fault" 2 "Run" 1 "Stop" 0 "Standby" ;
+VAL_ 546 RRDEF 1 "ON" 0 "OFF" ;
+VAL_ 546 OLETSET 4 "DEF" 3 "F/D" 2 "Foot" 1 "B/L" 0 "Face" ;
+VAL_ 546 ILETSET 1 "FRESH AIR" 0 "RECYCLING AIR" ;
+VAL_ 546 FRDEF 1 "ON" 0 "OFF" ;
+VAL_ 546 BLMSET 7 "HI" 6 "M5" 5 "M4" 4 "M3" 3 "M2" 2 "M1" 1 "LO" 0 "OFF" ;
+VAL_ 546 ACON 1 "ON" 0 "OFF" ;
+VAL_ 546 ACMODE 1 "AUTO" 0 "MANUAL" ;
+VAL_ 258 RRDEFSTATUS 1 "ON" 0 "OFF" ;
+VAL_ 258 OUTLETDIR 4 "DEF" 3 "F/D" 2 "Foot" 1 "B/L" 0 "Face" ;
+VAL_ 258 INLETDIR 1 "FRESH AIR" 0 "RECYCLING AIR" ;
+VAL_ 258 BLMLVL 7 "HI" 6 "M5" 5 "M4" 4 "M3" 3 "M2" 2 "M1" 1 "LO" 0 "OFF" ;
+

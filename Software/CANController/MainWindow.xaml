@@ -206,15 +206,17 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.9*"/>
+                            <ColumnDefinition Width="0.9*"/>
                             <ColumnDefinition Width="1.0*"/>
                             <ColumnDefinition Width="0.6*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" x:Name="CANDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
-
                         </Button>
-                        <Image Grid.Column="1" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
-                        <Grid Grid.Column="2">
+                        <Button Grid.Column="1" x:Name="DBCDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showDBCDetail">
+                        </Button>
+                        <Image Grid.Column="2" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
+                        <Grid Grid.Column="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
@@ -226,7 +228,7 @@
                                 室内
                             </TextBlock>
                         </Grid>
-                        <Grid Grid.Column="3">
+                        <Grid Grid.Column="4">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
