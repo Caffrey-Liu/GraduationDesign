@@ -9,7 +9,7 @@ using System.Web.UI;
 
 namespace CANController
 {
-    internal class SignalInfo {
+    public class SignalInfo {
         public String SignalName;
         public String SignalType;
         public int SignalStartBit;
@@ -23,12 +23,12 @@ namespace CANController
         public String Unit;
         public String Receiver;
     }
-    internal class MessageInfo {
-        public int MessageId;
-        public string MessageName;
-        public string MessageSize;
-        public string Transmitter;
-        public ArrayList messageDetail = new ArrayList();
+    public class MessageInfo {
+        public String MessageId;
+        public String MessageName;
+        public String MessageSize;
+        public String Transmitter;
+        public Dictionary<int, SignalInfo> messageDetail = new Dictionary<int, SignalInfo>();
         public SignalInfo stringToSignalInfo(String str)
         {
             SignalInfo signalInfo = new SignalInfo();
@@ -83,7 +83,7 @@ namespace CANController
         public String [] ValueTable;
 
         //BO_
-        public ArrayList messageInfo = new ArrayList();
+        public Dictionary<int, MessageInfo> messageInfo = new Dictionary<int, MessageInfo>();
 
         //BA_DEF_
         public String [] BA_DEF_;

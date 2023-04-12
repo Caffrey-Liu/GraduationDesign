@@ -5,23 +5,130 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
+        x:Name="DBC"
         Title="DBCDetail" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="2.0*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1" Background="LightGray" Drop="DBC_Drop" DragEnter="DBC_DrapEnter" AllowDrop="True">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="22" Opacity="0.5">拖放DBC文件</TextBlock>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height ="0.25*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="2"/>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">
+                            协议名称：
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" Margin="0,15" Text="{Binding fileName, ElementName=DBC, Mode=OneWay}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">
+                            波特率：
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" Margin="0,15" Text="{Binding Baudrate, ElementName=DBC, Mode=OneWay}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="2" Background="#FF006BFB" Drop="DBC_Drop" DragEnter="DBC_DrapEnter" AllowDrop="True">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="22" Foreground="White">拖放DBC文件</TextBlock>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,0" FontWeight="Bold">
+                                信息
+                            </TextBlock>
+                        </Grid>
+                        <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="datagrid" 
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                                  ItemsSource="{Binding Path=MessageInfo, ElementName=DBC, Mode=OneWay}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="390">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=MessageInfo.MessageName}" Header="名称"/>
+                                <DataGridTextColumn Width="0.6*" Binding="{Binding MessageId}" Header="ID"/>
+                                <DataGridTextColumn Width="0.5*" Binding="{Binding MessageId}" Header="数据格式"/>
+                                <DataGridTextColumn Width="0.5*" Binding="{Binding MessageSize}" Header="帧类型"/>
+                                <DataGridTextColumn Width="0.5*" Binding="{Binding Transmitter}" Header="发送节点"/>
+                                <DataGridTextColumn Width="0.5*" Binding="{Binding Transmitter}" Header="接收节点"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,0" FontWeight="Bold">
+                                位矩阵
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border Background="#FF006BFB" Grid.ColumnSpan="9"/>
+                            <Border Background="#FF006BFB" Grid.RowSpan="9"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Bit7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Bit6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Bit5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Bit4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="5" Text="Bit3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="6" Text="Bit2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="7" Text="Bit1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="8" Text="Bit0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Byte0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Byte1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Byte2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Byte3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Byte4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Byte5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Byte6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Byte7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

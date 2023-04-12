@@ -13,25 +13,90 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace CANController
 {
     /// <summary>
     /// DBCDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class DBCDetail : Window
+    public partial class DBCDetail : Window, INotifyPropertyChanged
     {
         public DBCDetail()
         {
             InitializeComponent();
+
+            datagrid.DataContext = this;
         }
 
+        #region 定义各种面板变量,实现接口
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string PropertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        private String _fileName;
+        public String fileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged("fileName");
+            }
+        }
+        public String Baudrate
+        {
+            get { return dbcInfo.Baudrate; }
+            set
+            {
+                OnPropertyChanged("Baudrate");
+            }
+        }
+
+        private ObservableCollection<MessageInfo> _MessageInfo = new ObservableCollection<MessageInfo>();
+        public ObservableCollection<MessageInfo> MessageInfo 
+        {
+            get { return _MessageInfo; }
+            set
+            {
+                _MessageInfo = value;
+                OnPropertyChanged("MessageInfo");
+            }
+        }
+
+        private ObservableCollection<String> _MessageName = new ObservableCollection<String>();
+        public ObservableCollection<String> MessageName
+        {
+            get { return _MessageName; }
+            set
+            {
+                _MessageName = value;
+                OnPropertyChanged("MessageName");
+            }
+        }
+
+        #endregion
+        private void RefreshData()
+        {
+            Baudrate = dbcInfo.Baudrate;
+            for (int i = 1; i <= dbcInfo.messageInfo.Count; i++) {
+                MessageName.Add(dbcInfo.messageInfo[i].MessageName);
+                MessageInfo.Add(dbcInfo.messageInfo[i]);
+            }
+        }
         private void DBC_Drop(object sender, DragEventArgs e)
         {
-            String fileName = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            String filePath = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            //Console.WriteLine(filePath);
+            fileName = filePath.Split(new char[2] { '\\', '.' })[filePath.Split(new char[2]{ '\\','.'}).Length - 2];
             //Console.WriteLine(fileName);
-            string Data = File.ReadAllText(fileName);
+            string Data = File.ReadAllText(filePath);
             AnalyDBCData(Data);
+            RefreshData();
             //Console.WriteLine(Data);
         }
 
@@ -48,6 +113,7 @@ namespace CANController
 
         DBCInfo dbcInfo = new DBCInfo();
         HashSet<string> keyWords = new HashSet<string>() {"VERSION", "NS_", "BS_:", "BU_:", "BO_", "BA_DEF_", "BA_DEF_DEF_", "BA_", "VAL_"};
+        int MessageCount = 0;
         private void AnalyDBCData(String Data) {
             String[] line = Data.Split('\n');
             //Console.WriteLine(line.Length);
@@ -102,17 +168,22 @@ namespace CANController
                 if (Words[0].Equals("BO_"))
                 {
                     MessageInfo messageInfo = new MessageInfo();
-                    messageInfo.MessageId = System.Convert.ToInt32("0x" + Words[1], 16);
+                    //Console.WriteLine("String ID = " + Words[1]);
+                    messageInfo.MessageId = System.Convert.ToInt32(Words[1]).ToString("X3");
                     messageInfo.MessageName = Words[2].Substring(0, Words[2].Length - 1);
                     messageInfo.MessageSize = Words[3];
                     messageInfo.Transmitter = Words[4];
                     i++;
+                    int SignalCount = 0;
                     while (!(line[i].Equals("") || line[i].Equals(newLine)))
                     {
-                        messageInfo.messageDetail.Add(messageInfo.stringToSignalInfo(line[i]));
+                        SignalCount++;
+                        messageInfo.messageDetail.Add(SignalCount,messageInfo.stringToSignalInfo(line[i]));
                         i++;
                     }
-                    dbcInfo.messageInfo.Add(messageInfo);
+                    MessageCount++;
+                    dbcInfo.messageInfo.Add(MessageCount,messageInfo);
+                    //Console.WriteLine(dbcInfo.messageInfo[MessageCount].MessageId); 
                     //Console.WriteLine(dbcInfo.messageInfo.Count);
                 }
 
@@ -172,35 +243,6 @@ namespace CANController
                 }
             }
             #endregion
-        }
-
-        public string getProperties<T>(T t)
-        {
-            string tStr = string.Empty;
-            if (t == null)
-            {
-                return tStr;
-            }
-            System.Reflection.PropertyInfo[] properties = t.GetType().GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
-
-            if (properties.Length <= 0)
-            {
-                return tStr;
-            }
-            foreach (System.Reflection.PropertyInfo item in properties)
-            {
-                string name = item.Name;
-                object value = item.GetValue(t, null);
-                if (item.PropertyType.IsValueType || item.PropertyType.Name.StartsWith("String"))
-                {
-                    tStr += string.Format("{0}:{1},", name, value);
-                }
-                else
-                {
-                    getProperties(value);
-                }
-            }
-            return tStr;
         }
     }
 }
