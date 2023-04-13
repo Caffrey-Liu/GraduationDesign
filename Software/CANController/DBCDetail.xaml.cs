@@ -22,81 +22,27 @@ namespace CANController
     /// <summary>
     /// DBCDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class DBCDetail : Window, INotifyPropertyChanged
+    public partial class DBCDetail : Window
     {
+        private PanelInfoModel panelInfoModel;
         public DBCDetail()
         {
             InitializeComponent();
-
-            datagrid.DataContext = this;
+            panelInfoModel = new PanelInfoModel();
+            MSGInfoDataGrid.DataContext = panelInfoModel;
+            SignalInfoDataGrid.DataContext = panelInfoModel;
+            DBCName.DataContext = panelInfoModel;
+            BITPicture.DataContext = panelInfoModel;
         }
 
-        #region 定义各种面板变量,实现接口
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string PropertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
-
-        private String _fileName;
-        public String fileName
-        {
-            get { return _fileName; }
-            set
-            {
-                _fileName = value;
-                OnPropertyChanged("fileName");
-            }
-        }
-        public String Baudrate
-        {
-            get { return dbcInfo.Baudrate; }
-            set
-            {
-                OnPropertyChanged("Baudrate");
-            }
-        }
-
-        private ObservableCollection<MessageInfo> _MessageInfo = new ObservableCollection<MessageInfo>();
-        public ObservableCollection<MessageInfo> MessageInfo 
-        {
-            get { return _MessageInfo; }
-            set
-            {
-                _MessageInfo = value;
-                OnPropertyChanged("MessageInfo");
-            }
-        }
-
-        private ObservableCollection<String> _MessageName = new ObservableCollection<String>();
-        public ObservableCollection<String> MessageName
-        {
-            get { return _MessageName; }
-            set
-            {
-                _MessageName = value;
-                OnPropertyChanged("MessageName");
-            }
-        }
-
-        #endregion
-        private void RefreshData()
-        {
-            Baudrate = dbcInfo.Baudrate;
-            for (int i = 1; i <= dbcInfo.messageInfo.Count; i++) {
-                MessageName.Add(dbcInfo.messageInfo[i].MessageName);
-                MessageInfo.Add(dbcInfo.messageInfo[i]);
-            }
-        }
         private void DBC_Drop(object sender, DragEventArgs e)
         {
             String filePath = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             //Console.WriteLine(filePath);
-            fileName = filePath.Split(new char[2] { '\\', '.' })[filePath.Split(new char[2]{ '\\','.'}).Length - 2];
+            panelInfoModel.fileName = filePath.Split(new char[2] { '\\', '.' })[filePath.Split(new char[2]{ '\\','.'}).Length - 2];
             //Console.WriteLine(fileName);
             string Data = File.ReadAllText(filePath);
             AnalyDBCData(Data);
-            RefreshData();
             //Console.WriteLine(Data);
         }
 
@@ -111,10 +57,11 @@ namespace CANController
             }
         }
 
-        DBCInfo dbcInfo = new DBCInfo();
-        HashSet<string> keyWords = new HashSet<string>() {"VERSION", "NS_", "BS_:", "BU_:", "BO_", "BA_DEF_", "BA_DEF_DEF_", "BA_", "VAL_"};
-        int MessageCount = 0;
+        //"VERSION", "NS_", "BS_:", "BU_:", "BO_", "BA_DEF_", "BA_DEF_DEF_", "BA_", "VAL_"
+        DBCInfo dbcInfo;
         private void AnalyDBCData(String Data) {
+            dbcInfo = new DBCInfo();
+            int MessageCount = 0;
             String[] line = Data.Split('\n');
             //Console.WriteLine(line.Length);
             String newLine = "" + (char)13;
@@ -178,11 +125,13 @@ namespace CANController
                     while (!(line[i].Equals("") || line[i].Equals(newLine)))
                     {
                         SignalCount++;
-                        messageInfo.messageDetail.Add(SignalCount,messageInfo.stringToSignalInfo(line[i]));
+                        //messageInfo.messageDetail.Add(SignalCount,messageInfo.stringToSignalInfo(line[i]));
+                        messageInfo.SignalInfo.Add(messageInfo.stringToSignalInfo(line[i]));
                         i++;
                     }
                     MessageCount++;
-                    dbcInfo.messageInfo.Add(MessageCount,messageInfo);
+                    //dbcInfo.messageInfo.Add(MessageCount,messageInfo);
+                    dbcInfo.messageInfo.Add(messageInfo);
                     //Console.WriteLine(dbcInfo.messageInfo[MessageCount].MessageId); 
                     //Console.WriteLine(dbcInfo.messageInfo.Count);
                 }
@@ -243,6 +192,76 @@ namespace CANController
                 }
             }
             #endregion
+            panelInfoModel.MessageInfo = dbcInfo._messageInfo;
+            //foreach (DBCInfo i in dBCInfoModel.DbcInfo) {
+            //    foreach (MessageInfo j in i.messageInfo)
+            //    {
+            //        Console.WriteLine(j.MessageName);
+            //    }
+            //}
+        }
+
+        private void MSGInfoDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MessageInfo messageInfo = (MessageInfo)MSGInfoDataGrid.SelectedItem;
+            panelInfoModel.SignalInfo = messageInfo.SignalInfo;
+            panelInfoModel.color[2, 2] = "#FF006BFB";
+            Console.WriteLine(panelInfoModel.fileName);
+            Console.WriteLine(messageInfo.MessageName + "  " +panelInfoModel.SignalInfo.Count);
+        }
+    }
+
+    public class PanelInfoModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
+        }
+
+        private String _fileName = "";
+        public String fileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("fileName"));
+            }
+        }
+
+        private ObservableCollection<MessageInfo> _messageInfo = new ObservableCollection<MessageInfo>();
+        public ObservableCollection<MessageInfo> MessageInfo
+        {
+            get { return _messageInfo; }
+            set
+            {
+                _messageInfo = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("MessageInfo"));
+            }
+        }
+
+        private ObservableCollection<SignalInfo> _signalInfo = new ObservableCollection<SignalInfo>();
+        public ObservableCollection<SignalInfo> SignalInfo
+        {
+            get { return _signalInfo; }
+            set
+            {
+                _signalInfo = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("SignalInfo"));
+            }
+        }
+
+        private String[,] _color = new String [8,8];
+        public String[,] color
+        {
+            get { return _color; }
+            set
+            {
+                _color = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("color"));
+            }
         }
     }
 }

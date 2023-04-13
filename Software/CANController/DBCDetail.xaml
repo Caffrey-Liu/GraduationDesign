@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
-        x:Name="DBC"
         Title="DBCDetail" Height="450" Width="800">
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height ="0.25*"/>
@@ -30,7 +29,7 @@
                         <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">
                             协议名称：
                         </TextBlock>
-                        <TextBlock Grid.Column="1" Margin="0,15" Text="{Binding fileName, ElementName=DBC, Mode=OneWay}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Margin="0,15" Name="DBCName" Text="{Binding fileName}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
@@ -53,7 +52,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.15*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -61,22 +60,20 @@
                                 信息
                             </TextBlock>
                         </Grid>
-                        <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="datagrid" 
+                        <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="MSGInfoDataGrid" AutoGenerateColumns="False"
                                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                                  ItemsSource="{Binding Path=MessageInfo, ElementName=DBC, Mode=OneWay}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="390">
+                                  ItemsSource="{Binding MessageInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="390" SelectionChanged="MSGInfoDataGrid_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=MessageInfo.MessageName}" Header="名称"/>
+                                <DataGridTextColumn Width="0.8*" Binding="{Binding MessageName}" Header="名称"/>
                                 <DataGridTextColumn Width="0.6*" Binding="{Binding MessageId}" Header="ID"/>
-                                <DataGridTextColumn Width="0.5*" Binding="{Binding MessageId}" Header="数据格式"/>
-                                <DataGridTextColumn Width="0.5*" Binding="{Binding MessageSize}" Header="帧类型"/>
-                                <DataGridTextColumn Width="0.5*" Binding="{Binding Transmitter}" Header="发送节点"/>
+                                <DataGridTextColumn Width="0.5*" Binding="{Binding MessageSize}" Header="报文长度"/>
                                 <DataGridTextColumn Width="0.5*" Binding="{Binding Transmitter}" Header="接收节点"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.15*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -84,7 +81,7 @@
                                 位矩阵
                             </TextBlock>
                         </Grid>
-                        <Grid Grid.Row="1" ShowGridLines="True">
+                        <Grid Grid.Row="1" ShowGridLines="True" Name="BITPicture">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -128,7 +125,32 @@
                         </Grid>
                     </Grid>
                 </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,0" FontWeight="Bold">信号详细信息</TextBlock>
+                    <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="SignalInfoDataGrid" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                                  ItemsSource="{Binding SignalInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="790" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="0.8*" Binding="{Binding SignalName}" Header="信号名称"/>
+                            <DataGridTextColumn Width="0.45*" Binding="{Binding SignalType}" Header="信号类型"/>
+                            <DataGridTextColumn Width="0.55*" Binding="{Binding SignalStartBit}" Header="信号开始位"/>
+                            <DataGridTextColumn Width="0.45*" Binding="{Binding SignalBitSize}" Header="信号长度"/>
+                            <DataGridTextColumn Width="0.4*" Binding="{Binding SignalByteOrder}" Header="字节序"/>
+                            <DataGridTextColumn Width="0.55*" Binding="{Binding SignalValueType}" Header="是否符号数"/>
+                            <DataGridTextColumn Width="0.5*" Binding="{Binding Factor}" Header="因子"/>
+                            <DataGridTextColumn Width="0.6*" Binding="{Binding Offset}" Header="偏移量"/>
+                            <DataGridTextColumn Width="0.6*" Binding="{Binding Min}" Header="最小值"/>
+                            <DataGridTextColumn Width="0.6*" Binding="{Binding Max}" Header="最大值"/>
+                            <DataGridTextColumn Width="0.4*" Binding="{Binding Unit}" Header="单位"/>
+                            <DataGridTextColumn Width="0.8*" Binding="{Binding Receiver}" Header="接收节点"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
-        </ScrollViewer>
+        
     </Grid>
 </Window>

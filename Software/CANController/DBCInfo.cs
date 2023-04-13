@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,32 +12,37 @@ using System.Web.UI;
 namespace CANController
 {
     public class SignalInfo {
-        public String SignalName;
-        public String SignalType;
-        public int SignalStartBit;
-        public int SignalBitSize;
-        public String SignalByteOrder;
-        public String SignalValueType;
-        public double Factor;
-        public double Offset;
-        public double Min;
-        public double Max;
-        public String Unit;
-        public String Receiver;
+        public String SignalName { get; set; }
+        public String SignalType { get; set; }
+        public int SignalStartBit { get; set; }
+        public int SignalBitSize { get; set; }
+        public String SignalByteOrder { get; set; }
+        public String SignalValueType { get; set; }
+        public double Factor { get; set; }
+        public double Offset { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
+        public String Unit { get; set; }
+        public String Receiver { get; set; }
     }
     public class MessageInfo {
-        public String MessageId;
-        public String MessageName;
-        public String MessageSize;
-        public String Transmitter;
-        public Dictionary<int, SignalInfo> messageDetail = new Dictionary<int, SignalInfo>();
+        public String MessageId { get; set; }
+        public String MessageName { get; set; }
+        public String MessageSize { get; set; }
+        public String Transmitter { get; set; }
+        public ObservableCollection<SignalInfo> _SignalInfo = new ObservableCollection<SignalInfo>();
+        public ObservableCollection<SignalInfo> SignalInfo
+        {
+            get { return _SignalInfo; }
+            set { _SignalInfo = value; }
+        }
         public SignalInfo stringToSignalInfo(String str)
         {
             SignalInfo signalInfo = new SignalInfo();
             String [] Words = str.Split(' ');
-            signalInfo.SignalName = Words[1];
+            signalInfo.SignalName = Words[2];
 
-            int Index = 2;
+            int Index = 3;
             if (!Words[Index].Equals(":"))
             {
                 signalInfo.SignalType = Words[Index];
@@ -62,40 +69,44 @@ namespace CANController
 
             signalInfo.Unit = Words[Index].Replace("\"","");
             Index++;
-
+            Index++;
             signalInfo.Receiver = Words[Index];
             return signalInfo;
         }
     }
-    internal class DBCInfo
+    public class DBCInfo
     {
         //Version
-        public String VersionData;
+        public String VersionData { get; set; }
 
         //NS_
-        public String [] NewSymbols;
+        public String[] NewSymbols { get; set; }
 
         //BS_
-        public String Baudrate;
+        public String Baudrate { get; set; } = "9500";
 
         //BU_
-        public String [] NodeName;
-        public String [] ValueTable;
+        public String [] NodeName { get; set; }
+        public String [] ValueTable { get; set; }
 
         //BO_
-        public Dictionary<int, MessageInfo> messageInfo = new Dictionary<int, MessageInfo>();
+        public ObservableCollection<MessageInfo> _messageInfo = new ObservableCollection<MessageInfo>();
+        public ObservableCollection<MessageInfo> messageInfo {
+            get { return _messageInfo; }
+            set { _messageInfo = value; }
+        }
 
         //BA_DEF_
-        public String [] BA_DEF_;
+        public String [] BA_DEF_ { get; set; }
 
         //BA_DEF_DEF_
-        public String [] BA_DEF_DEF_;
+        public String [] BA_DEF_DEF_ { get; set; }
 
         //BA_
-        public String[] BA_;
+        public String[] BA_ { get; set; }
 
         //VAL_
-        public String[] VAL_;
+        public String[] VAL_ { get; set; }
 
     }
 }
