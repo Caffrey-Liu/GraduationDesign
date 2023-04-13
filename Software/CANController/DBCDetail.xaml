@@ -81,7 +81,7 @@
                                 位矩阵
                             </TextBlock>
                         </Grid>
-                        <Grid Grid.Row="1" ShowGridLines="True" Name="BITPicture">
+                        <Grid Grid.Row="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -122,7 +122,9 @@
                             <TextBlock Grid.Row="6" Grid.Column="0" Text="Byte5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                             <TextBlock Grid.Row="7" Grid.Column="0" Text="Byte6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                             <TextBlock Grid.Row="8" Grid.Column="0" Text="Byte7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                        </Grid>
+                        <Grid x:Name="BITPicture" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                        <Grid x:Name="BITPictureText" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
+                    </Grid>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="2">

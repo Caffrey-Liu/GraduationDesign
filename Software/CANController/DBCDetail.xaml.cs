@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections;
+using System.Windows.Controls.Primitives;
 
 namespace CANController
 {
@@ -205,9 +206,118 @@ namespace CANController
         {
             MessageInfo messageInfo = (MessageInfo)MSGInfoDataGrid.SelectedItem;
             panelInfoModel.SignalInfo = messageInfo.SignalInfo;
-            panelInfoModel.color[2, 2] = "#FF006BFB";
-            Console.WriteLine(panelInfoModel.fileName);
-            Console.WriteLine(messageInfo.MessageName + "  " +panelInfoModel.SignalInfo.Count);
+            getBITPicture(messageInfo);
+            //Console.WriteLine(panelInfoModel.fileName);
+            //Console.WriteLine(messageInfo.MessageName + "  " +panelInfoModel.SignalInfo.Count);
+        }
+
+        private void getBITPicture(MessageInfo messageInfo)
+        {
+            BITPicture.Children.Clear();
+            BITPictureText.Children.Clear();
+            UniformGrid uniformGrid = new UniformGrid();
+            uniformGrid.Columns = 8;
+            uniformGrid.Rows = 8;
+            UniformGrid uniformGridText = new UniformGrid();
+            uniformGridText.Columns = 8;
+            uniformGridText.Rows = 8;
+
+            ObservableCollection<SignalInfo> SignalInfo = messageInfo.SignalInfo;
+            string [,] MAP = new string[8, 8];
+            string[,] TextMAP = new string[8, 8];
+
+            for (int i = 0; i < 8; i++) 
+            {
+                for (int j = 0; j < 8; j++) 
+                {
+                    MAP[i, j] = "#FFFFFFFF";
+                    TextMAP[i, j] = "";
+                }
+            }
+            String ByteOrder = "";
+            foreach (SignalInfo signalInfo in SignalInfo) 
+            {
+                int SignalStartBit = signalInfo.SignalStartBit;
+                int SignalBitSize = signalInfo.SignalBitSize;
+                // 0 Motorola 1 Inter
+                ByteOrder = signalInfo.SignalByteOrder;
+                String color = GetRandomColor();
+                //Console.WriteLine(color);
+                if (ByteOrder.Equals("1")) 
+                {
+                    for (int i = SignalStartBit; i < SignalStartBit + SignalBitSize; i++) 
+                    {
+                        MAP[i / 8, i % 8] = color;
+                        TextMAP[i / 8, i % 8] = signalInfo.SignalName;
+                    }
+                }
+                else 
+                {
+                    int start = (1 + (SignalStartBit / 8) * 2) * 8 - 1 - SignalStartBit;
+                    for (int i = 0; i < SignalBitSize; i++)
+                    {
+                        MAP[start / 8, start % 8] = color;
+                        TextMAP[start / 8, start % 8] = signalInfo.SignalName;
+                        start++;
+                    }
+                }
+            }
+            if (ByteOrder.Equals("1")) 
+            {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        String temp = MAP[i, j];
+                        MAP[i, j] = MAP[i, 7 - j];
+                        MAP[i, 7 - j] = temp;
+
+                        String tempText = TextMAP[i, j];
+                        TextMAP[i, j] = TextMAP[i, 7 - j];
+                        TextMAP[i, 7 - j] = tempText;
+                    }
+                }
+            }
+
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    for (int j = 0; j < 8; j++)
+            //    {
+            //        Console.Write(MAP[i, j] + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            for (int i = 0; i < 8; i++) { 
+                for (int j = 0; j < 8; j++) 
+                {
+                    Border border = new Border();
+                    BrushConverter brushConverter = new BrushConverter();
+                    border.Background = (Brush)brushConverter.ConvertFromString(MAP[i, j]);
+                    uniformGrid.Children.Add(border);
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = TextMAP[i, j];
+                    textBlock.FontSize = 8;
+                    uniformGridText.Children.Add(textBlock);
+                }
+            }
+            BITPicture.Children.Add(uniformGrid);
+            BITPictureText.Children.Add(uniformGridText);
+        }
+
+        public string GetRandomColor()
+        {
+            Random RandomNum_First = new Random((int)DateTime.Now.Ticks);
+            //  对于C#的随机数，没什么好说的
+            System.Threading.Thread.Sleep(RandomNum_First.Next(50));
+            Random RandomNum_Sencond = new Random((int)DateTime.Now.Ticks);
+
+
+            //  为了在白色背景上显示，尽量生成深色
+            byte int_Red = (byte)RandomNum_First.Next(256);
+            byte int_Green = (byte)RandomNum_Sencond.Next(256);
+            byte int_Blue = (byte)((int_Red + int_Green > 400) ? 0 : 400 - int_Red - int_Green);
+            int_Blue = (byte)((int_Blue > 255) ? 255 : int_Blue);
+            return Color.FromRgb(int_Red, int_Green, int_Blue).ToString();
         }
     }
 
