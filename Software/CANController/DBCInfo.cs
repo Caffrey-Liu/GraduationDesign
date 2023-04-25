@@ -39,6 +39,7 @@ namespace CANController
         public SignalInfo stringToSignalInfo(String str)
         {
             SignalInfo signalInfo = new SignalInfo();
+            Regex.Replace(str, "\\s{2,}", " ");
             String [] Words = str.Split(' ');
             signalInfo.SignalName = Words[2];
 
@@ -69,7 +70,7 @@ namespace CANController
 
             signalInfo.Unit = Words[Index].Replace("\"","");
             Index++;
-            Index++;
+
             signalInfo.Receiver = Words[Index];
             return signalInfo;
         }

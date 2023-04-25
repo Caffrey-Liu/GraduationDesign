@@ -17,6 +17,8 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.Windows.Controls.Primitives;
+using System.Windows.Interop;
+using CAN;
 
 namespace CANController
 {
@@ -44,6 +46,8 @@ namespace CANController
             //Console.WriteLine(fileName);
             string Data = File.ReadAllText(filePath);
             AnalyDBCData(Data);
+            DS.dbcInfo = dbcInfo;
+            DS.Draw();
             //Console.WriteLine(Data);
         }
 
@@ -117,7 +121,7 @@ namespace CANController
                 {
                     MessageInfo messageInfo = new MessageInfo();
                     //Console.WriteLine("String ID = " + Words[1]);
-                    messageInfo.MessageId = System.Convert.ToInt32(Words[1]).ToString("X3");
+                    messageInfo.MessageId = System.Convert.ToInt64(Words[1]).ToString("X8");
                     messageInfo.MessageName = Words[2].Substring(0, Words[2].Length - 1);
                     messageInfo.MessageSize = Words[3];
                     messageInfo.Transmitter = Words[4];
@@ -205,8 +209,11 @@ namespace CANController
         private void MSGInfoDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MessageInfo messageInfo = (MessageInfo)MSGInfoDataGrid.SelectedItem;
-            panelInfoModel.SignalInfo = messageInfo.SignalInfo;
-            getBITPicture(messageInfo);
+            if (messageInfo != null)
+            {
+                panelInfoModel.SignalInfo = messageInfo.SignalInfo;
+                getBITPicture(messageInfo);
+            }
             //Console.WriteLine(panelInfoModel.fileName);
             //Console.WriteLine(messageInfo.MessageName + "  " +panelInfoModel.SignalInfo.Count);
         }
@@ -319,6 +326,27 @@ namespace CANController
             int_Blue = (byte)((int_Blue > 255) ? 255 : int_Blue);
             return Color.FromRgb(int_Red, int_Green, int_Blue).ToString();
         }
+
+        public DBCSimulation DS = new DBCSimulation();
+        int DStag = 0;
+        private void showDBCSimulation(object sender, RoutedEventArgs e)
+        {
+            if (DStag == 0)
+            {
+                DS.Show();
+                WindowInteropHelper parentHelper = new WindowInteropHelper(this);
+                WindowInteropHelper childHelper = new WindowInteropHelper(DS);
+                Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
+
+                DS.WindowState = WindowState.Normal;
+                DStag = 1;
+            }
+            else
+            {
+                DS.Hide();
+                DStag = 0;
+            }
+        }
     }
 
     public class PanelInfoModel : INotifyPropertyChanged
@@ -373,5 +401,7 @@ namespace CANController
                 OnPropertyChanged(new PropertyChangedEventArgs("color"));
             }
         }
+
+
     }
 }

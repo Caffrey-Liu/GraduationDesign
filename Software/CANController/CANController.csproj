@@ -71,6 +71,9 @@
       <DependentUpon>DBCDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="DBCInfo.cs" />
+    <Compile Include="DBCSimulation.xaml.cs">
+      <DependentUpon>DBCSimulation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PanelMSG.cs" />
     <Compile Include="PassInfo.cs" />
     <Compile Include="Win32Native.cs" />
@@ -79,6 +82,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DBCDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DBCSimulation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

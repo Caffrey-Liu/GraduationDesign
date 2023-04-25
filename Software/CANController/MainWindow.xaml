@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
         x:Name="Panel"
-        Title="空调仿真ECU" Height="720" Width="1280">
+        Title="空调仿真ECU" Height="900" Width="1440">
     <Window.Resources>
         <Image x:Key="OutCycle_off" Source="./Image/OutCycle.png" Opacity="0.8" Margin="10"/>
         <Image x:Key="OutCycle_on" Source="./Image/heat.png" Opacity="0.8" Margin="10"/>

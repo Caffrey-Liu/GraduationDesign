@@ -294,7 +294,9 @@ namespace CANController
             Button btn = sender as Button;
             if (btn.Name.Equals("power") && firstTime == 0) 
             {
-                    can.CanSetting.SetCAN((uint)0, //deviceIndex 设备索引号
+                can.CloseCANDevice();
+                can.ResetCANDevice();
+                can.CanSetting.SetCAN((uint)0, //deviceIndex 设备索引号
                                                   (byte)0, //canIndex CAN的路索引号
                                                   (byte)CanFilterType.DualFilter, //filterType 过滤类型
                                                   (byte)CanMode.NormalMode, //canMode CAN模式
@@ -302,7 +304,7 @@ namespace CANController
                                                   "FFFFFFFF", //canMask 掩码
                                                   "00", //时间高位
                                                   "1C"); //时间低位,默认 00 1C 500Mps
-                    firstTime = 1;
+                firstTime = 1;
             }         
             if (firstTime != 0 )
             {
@@ -420,6 +422,7 @@ namespace CANController
         {
             if (DDtag == 0)
             {
+                can.ReceviedData += DD.DS.Can_ReceviedData;
                 DD.Show();
                 WindowInteropHelper parentHelper = new WindowInteropHelper(this);
                 WindowInteropHelper childHelper = new WindowInteropHelper(DD);
@@ -430,6 +433,7 @@ namespace CANController
             }
             else
             {
+                can.ReceviedData -= DD.DS.Can_ReceviedData;
                 DD.Hide();
                 DDtag = 0;
             }

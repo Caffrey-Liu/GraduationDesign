@@ -5,20 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
-        Title="DBCDetail" Height="450" Width="800">
+        Title="DBCDetail" Height="567" Width="1008">
     <Grid>
         
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height ="0.25*"/>
+                    <RowDefinition Height ="0.2*"/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="0.6*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" ShowGridLines="True">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="0.4*"/>
                         <ColumnDefinition/>
+                        <ColumnDefinition Width="0.3*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="2"/>
                     <Grid Grid.Column="0">
@@ -44,10 +45,18 @@
                     <Grid Grid.Column="2" Background="#FF006BFB" Drop="DBC_Drop" DragEnter="DBC_DrapEnter" AllowDrop="True">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="22" Foreground="White">拖放DBC文件</TextBlock>
                     </Grid>
-                </Grid>
+                    <Grid Grid.Column="3">
+                    <Button x:Name="DBCSimulation" Click="showDBCSimulation" BorderBrush="White" Background="#FF0033FF">
+                        <WrapPanel>
+                            <TextBlock Text="仿真模拟" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                        </WrapPanel>
+                    </Button>
+                    </Grid>
+
+            </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.6*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
@@ -60,9 +69,9 @@
                                 信息
                             </TextBlock>
                         </Grid>
-                        <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="MSGInfoDataGrid" AutoGenerateColumns="False"
+                        <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="11" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="MSGInfoDataGrid" AutoGenerateColumns="False"
                                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                                  ItemsSource="{Binding MessageInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="390" SelectionChanged="MSGInfoDataGrid_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                  ItemsSource="{Binding MessageInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" SelectionChanged="MSGInfoDataGrid_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="0.8*" Binding="{Binding MessageName}" Header="名称"/>
                                 <DataGridTextColumn Width="0.6*" Binding="{Binding MessageId}" Header="ID"/>
@@ -133,11 +142,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,0" FontWeight="Bold">信号详细信息</TextBlock>
-                    <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="10" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="SignalInfoDataGrid" AutoGenerateColumns="False"
+                    <DataGrid Grid.Row="1" ColumnHeaderHeight="30" FontSize="11" FontWeight="Bold" HeadersVisibility="Column"  IsReadOnly="True" Name="SignalInfoDataGrid" AutoGenerateColumns="False"
                                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                                  ItemsSource="{Binding SignalInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" Width="790" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top">
+                                  ItemsSource="{Binding SignalInfo}" BorderBrush="White" GridLinesVisibility="Horizontal" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="0.8*" Binding="{Binding SignalName}" Header="信号名称"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding SignalName}" Header="信号名称"/>
                             <DataGridTextColumn Width="0.45*" Binding="{Binding SignalType}" Header="信号类型"/>
                             <DataGridTextColumn Width="0.55*" Binding="{Binding SignalStartBit}" Header="信号开始位"/>
                             <DataGridTextColumn Width="0.45*" Binding="{Binding SignalBitSize}" Header="信号长度"/>

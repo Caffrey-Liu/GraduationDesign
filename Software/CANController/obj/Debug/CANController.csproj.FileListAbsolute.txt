@@ -23,3 +23,5 @@ D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\D
 D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\CanDetail.baml
 D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\DBCDetail.g.cs
 D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\DBCDetail.baml
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\DBCSimulation.g.cs
+D:\各种论文作业\毕业设计\GraduationDesign\Software\CANController\obj\Debug\DBCSimulation.baml
