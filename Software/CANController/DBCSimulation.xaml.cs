@@ -35,15 +35,10 @@ namespace CANController
         public void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
             FrameInfo message = e.CanFrameInfo;
-            //CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   数据长度：" + message.Data.Length / 2 + "   帧数据：";
-            //for (int i = 0; i < message.Data.Length; i = i + 2)
-            //{
-            //    CurrentProgress += "" + message.Data[i] + message.Data[i + 1] + " ";
-            //}
             RefreshData(message);
         }
 
-        Dictionary<string, double> signal_values = new Dictionary<string, double>();
+        Dictionary<string, Data> signal_values = new Dictionary<string, Data>();
         private void RefreshData(FrameInfo message)
         {
             MessageInfo messageInfo = null;
@@ -55,7 +50,7 @@ namespace CANController
                     break;
                 }
             }
-            Console.WriteLine(message.Data);
+            //Console.WriteLine(message.Data);
             String binary_values = convertHexToBitArray(message.Data);
             #region 输出binary_values检查
             //int count = 0;
@@ -83,11 +78,14 @@ namespace CANController
                         //Console.WriteLine(temp.SignalName + " = " + num);
                         if (signal_values.ContainsKey(temp.SignalName))
                         {
-                            signal_values[temp.SignalName] = num;
+                            signal_values[temp.SignalName].data = num;
                         }
                         else 
                         { 
-                            signal_values.Add(temp.SignalName, num); 
+                            Data data = new Data();
+                            data.setType(temp.SignalBitSize);
+                            data.data = num;
+                            signal_values.Add(temp.SignalName, data); 
                         }
                     }
                 }
@@ -139,6 +137,83 @@ namespace CANController
                 PropertyChanged(this, e);
         }
 
+        public class Data : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public int type;
+
+            private double _data;
+            public double data
+            {
+                get
+                {
+                    return this._data;
+                }
+                set
+                {
+                    _data = value;
+                    setImg(value);
+                    if (PropertyChanged != null)
+                    {
+                        this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("data"));
+                    }
+                }
+            }
+
+            private string _image;
+            public string image
+            {
+                get
+                {
+                    return this._image;
+                }
+                set
+                {
+                    _image = value;
+                    if (PropertyChanged != null)
+                    {
+                        this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("image"));
+                    }
+                }
+            }
+
+            void setImg(double num) {
+                if (type == 0) {
+                    if ((int)num == 0) {
+                        image = "./Image/switch0.png";
+                    }
+                    if ((int)num == 1) {
+                        image = "./Image/switch1.png";
+                    }
+                }
+                if (type == 1) {
+                    if ((int)num == 0) { image = "./Image/state1.png";}
+                    if ((int)num == 1) { image = "./Image/state2.png"; }
+                    if ((int)num == 2) { image = "./Image/state3.png"; }
+                    if ((int)num == 3) { image = "./Image/state4.png"; }
+                    if ((int)num == 4) { image = "./Image/state5.png"; }
+                    if ((int)num == 5) { image = "./Image/state6.png"; }
+                    if ((int)num == 6) { image = "./Image/state7.png"; }
+                    if ((int)num == 7) { image = "./Image/state8.png"; }
+                }
+                if (type == 2) { }
+            }
+            public void setType(int SignalBitSize) {
+                if (SignalBitSize == 1)
+                {
+                    type = 0;
+                }
+                else if (SignalBitSize < 5)
+                {
+                    type = 1;
+                }
+                else
+                {
+                    type = 2;
+                }
+            }
+        }
         public void Draw()
         {
             Panel.Children.Clear();
@@ -151,7 +226,7 @@ namespace CANController
                 grid.Name = msg.MessageName;
                 TextBlock MSGtextBlock = new TextBlock();
                 MSGtextBlock.Text = msg.MessageName;
-                MSGtextBlock.FontSize = 14;
+                MSGtextBlock.FontSize = 16;
                 MSGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
                 MSGtextBlock.FontWeight = FontWeights.Bold;
                 MSGtextBlock.HorizontalAlignment = HorizontalAlignment.Center;
@@ -160,7 +235,7 @@ namespace CANController
                 grid.Children.Add(MSGtextBlock);
 
                 Canvas canvas = new Canvas();
-                canvas.Height = 400;
+                canvas.Height = 300;
                 canvas.Background = (Brush)brushConverter.ConvertFromString("#FFecf0f1");
                 canvas.Name = msg.MessageName + "Canvas";
                 int canvasleft = 10;
@@ -179,25 +254,74 @@ namespace CANController
                     SIGtextBlock.HorizontalAlignment = HorizontalAlignment.Center;
                     SIGtextBlock.VerticalAlignment = VerticalAlignment.Center;
                     SIGtextBlock.Text = sig.SignalName;
-                    SIGtextBlock.FontSize = 9;
+                    SIGtextBlock.FontSize = 12;
+                    SIGtextBlock.FontWeight = FontWeights.Bold;
+                    SIGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
+                    SIGtextBlock.Background = (Brush)brushConverter.ConvertFromString("#FF1e3799");
                     SIGtextBlock.Margin = new Thickness(5);
-                    Grid.SetRow(SIGtextBlock,0);
+                    Grid.SetRow(SIGtextBlock,1);
+                    
                     //添加信号对应控件
-                    TextBox textBox = new TextBox();
-                    textBox.Name = sig.SignalName;
                     //绑定
-                    Binding binding = new Binding();
+                    Data data;
+                    if (signal_values.ContainsKey(sig.SignalName))
+                    {
+                        data = signal_values[sig.SignalName];
+                    }
+                    else {
+                        data = new Data();
+                        data.setType(sig.SignalBitSize);
+                        signal_values.Add(sig.SignalName, data);
+                    }
 
+                    if (data.type == 2)
+                    {
+                        Binding bindingTxt = new Binding();
+                        bindingTxt.Source = data;
+                        bindingTxt.Path = new PropertyPath("data");
+                        TextBox textBox = new TextBox();
+                        textBox.Name = sig.SignalName;
+                        textBox.SetBinding(TextBox.TextProperty, bindingTxt);
+                        textBox.Margin = new Thickness(5);
+                        textBox.FontWeight = FontWeights.Bold;
+                        textBox.FontSize = 16;
+                        textBox.FontFamily = new FontFamily("Bahnschrift SemiBold");
+                        textBox.VerticalContentAlignment = VerticalAlignment.Center;
+                        textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        textBox.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
+                        textBox.Background = (Brush)brushConverter.ConvertFromString("#FF0984e3");
+                        Grid.SetRow(textBox, 0);
 
-                    textBox.Margin = new Thickness(5);
-                    Grid.SetRow(textBox,1);
+                        siggrid.Children.Add(textBox);
+                    }
+                    else
+                    {
+                        Binding bindingImg = new Binding();
+                        bindingImg.Source = data;
+                        bindingImg.Path = new PropertyPath("image");
+                        Image image = new Image();
+                        image.Name = sig.SignalName;
+                        image.SetBinding(Image.SourceProperty, bindingImg);
+                        Grid.SetRow(image, 0);
+
+                        siggrid.Children.Add(image);
+                    }
+
 
                     siggrid.Children.Add(SIGtextBlock);
-                    siggrid.Children.Add(textBox);
+                    Border border = new Border();
+                    border.Background = (Brush)brushConverter.ConvertFromString("#FFe84078");
+                    border.Opacity = 0;
+                    Grid.SetRowSpan(border, 2);
+                    siggrid.Children.Add(border);
                     Canvas.SetLeft(siggrid, canvasleft);
                     Canvas.SetTop(siggrid, canvastop);
-                    canvasleft += 30;
-                    canvastop += 30;
+                    canvasleft += 150;
+                    if (canvasleft > 610) {
+                        canvasleft = 10;
+                        canvastop += 150;
+                    }
+                    
                     canvas.Children.Add(siggrid);
                 }
                 Panel.Children.Add(grid);
@@ -208,12 +332,25 @@ namespace CANController
         Grid SelectedGrid;
         private void SIGGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            TextBlock textBlock;
-            if (e.Source.GetType() == typeof(TextBlock))
-            {
-                textBlock = (TextBlock)e.Source;
-                SelectedGrid = (Grid)VisualTreeHelper.GetParent(textBlock);
+            if (e.Source.GetType() == typeof(Border)) {
+                Border border = (Border)e.Source;
+                SelectedGrid = (Grid)VisualTreeHelper.GetParent(border);
             }
+            //else if (e.Source.GetType() == typeof(TextBlock))
+            //{
+            //    TextBlock textBlock = (TextBlock)e.Source;
+            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(textBlock);
+            //}
+            //else if (e.Source.GetType() == typeof(Image))
+            //{
+            //    Image image = (Image)e.Source;
+            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(image);
+            //}
+            //else if (e.Source.GetType() == typeof(TextBox))
+            //{
+            //    TextBox textbox = (TextBox)e.Source;
+            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(textbox);
+            //}
             else return;
             //Console.WriteLine("点击了" + SelectedGrid.Name +"控件");
             SelectedGrid.MouseMove += SIGGrid_MouseMove;
@@ -225,15 +362,16 @@ namespace CANController
             SelectedGrid.Opacity = 1;
             SelectedGrid.MouseMove -= SIGGrid_MouseMove;
             SelectedGrid.MouseLeftButtonUp -= SIGGrid_MouseLeftButtonUp;
+            
         }
 
         private void SIGGrid_MouseMove(object sender, MouseEventArgs e)
         {
             Point point = e.GetPosition((Canvas)VisualTreeHelper.GetParent(SelectedGrid));
             //Console.WriteLine("   X = " + point.X + "    Y = " + point.Y);
-            SelectedGrid.Opacity = 0.5;
-            Canvas.SetLeft(SelectedGrid, point.X - SelectedGrid.Height/4);
-            Canvas.SetTop(SelectedGrid, point.Y - SelectedGrid.Width/4);
+            SelectedGrid.Opacity = 0.6;
+            Canvas.SetLeft(SelectedGrid, point.X - SelectedGrid.Height/2);
+            Canvas.SetTop(SelectedGrid, point.Y - SelectedGrid.Width/2);
         }
     }
 }

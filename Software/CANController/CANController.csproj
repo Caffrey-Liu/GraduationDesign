@@ -237,5 +237,21 @@
   <ItemGroup>
     <Resource Include="Image\BLW1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\switch0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\switch1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\state1.png" />
+    <Resource Include="Image\state2.png" />
+    <Resource Include="Image\state3.png" />
+    <Resource Include="Image\state4.png" />
+    <Resource Include="Image\state5.png" />
+    <Resource Include="Image\state6.png" />
+    <Resource Include="Image\state7.png" />
+    <Resource Include="Image\state8.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
