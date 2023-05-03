@@ -4,12 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,7 +29,14 @@ namespace CANController
     {
         public DBCSimulation()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
             InitializeComponent();
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
 
         public DBCInfo dbcInfo = new DBCInfo();

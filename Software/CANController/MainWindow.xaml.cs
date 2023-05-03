@@ -26,7 +26,13 @@ namespace CANController
     {
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            can.CloseCANDevice();
         }
 
         #region 定义各种面板变量,实现接口

@@ -40,7 +40,7 @@
                         <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">
                             波特率：
                         </TextBlock>
-                        <TextBlock Grid.Column="1" Margin="0,15" Text="{Binding Baudrate, ElementName=DBC, Mode=OneWay}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Margin="0,15" Name ="Baudrate" Text="{Binding Baudrate}" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="2" Background="#FF006BFB" Drop="DBC_Drop" DragEnter="DBC_DrapEnter" AllowDrop="True">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="22" Foreground="White">拖放DBC文件</TextBlock>

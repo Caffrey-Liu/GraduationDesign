@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="3297712">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="1932208">
       <assemblyIdentity name="CANController" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>JSgWlxfVnSZ2IdurZfJpaTKHQKnK0IEp2AWelgwWUtg=</dsig:DigestValue>
+        <dsig:DigestValue>Y7j6W7K9vYfWvQPuL5Zf+AVX17TFtgHUetSISpmh1sc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,6 +74,30 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>HUWmr6OPCxCBQGPypC5u/ORXUoU2Z2UOdlhEuFZrMzI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WpfAnimatedGif.dll" size="42496">
+      <assemblyIdentity name="WpfAnimatedGif" version="2.0.0.0" publicKeyToken="9E7CD3B544A090DC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tMab4hO6PdQOa8gZt7/BOrA9BtXz76DkZDsbVeWlKfk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="XamlAnimatedGif.dll" size="96768">
+      <assemblyIdentity name="XamlAnimatedGif" version="2.0.0.0" publicKeyToken="20A987D8023D9690" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>eTsgYF9/CnDLw+nKO7wMPajuesdHQr9USQokNZElLRw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

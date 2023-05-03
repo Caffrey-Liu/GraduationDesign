@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/can.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/dbc.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/wifi.gif")]
 
 

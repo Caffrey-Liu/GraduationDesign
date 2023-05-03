@@ -27,7 +27,14 @@ namespace CANController
     {
         public CanDetail()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
             InitializeComponent();
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
 
         public void Can_ReceviedData(object sender, CANFrameInfoArgs e)

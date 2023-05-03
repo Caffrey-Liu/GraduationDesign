@@ -88,6 +88,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=20a987d8023d9690, processorArchitecture=MSIL">
+      <HintPath>packages\XamlAnimatedGif.2.1.1\lib\net45\XamlAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -161,12 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\panel1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\panel.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\panel3.png" />
@@ -297,6 +297,12 @@
   <ItemGroup>
     <Resource Include="Image\CAN.png" />
     <Resource Include="Image\DBC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\wifi.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

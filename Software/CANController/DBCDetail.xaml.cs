@@ -30,12 +30,20 @@ namespace CANController
         private PanelInfoModel panelInfoModel;
         public DBCDetail()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
             InitializeComponent();
             panelInfoModel = new PanelInfoModel();
             MSGInfoDataGrid.DataContext = panelInfoModel;
             SignalInfoDataGrid.DataContext = panelInfoModel;
             DBCName.DataContext = panelInfoModel;
+            Baudrate.DataContext = panelInfoModel;
             BITPicture.DataContext = panelInfoModel;
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
 
         private void DBC_Drop(object sender, DragEventArgs e)
@@ -47,6 +55,7 @@ namespace CANController
             string Data = File.ReadAllText(filePath);
             AnalyDBCData(Data);
             DS.dbcInfo = dbcInfo;
+            panelInfoModel.Baudrate = dbcInfo.Baudrate;
             DS.Draw();
             //Console.WriteLine(Data);
         }
@@ -303,7 +312,11 @@ namespace CANController
 
                     TextBlock textBlock = new TextBlock();
                     textBlock.Text = TextMAP[i, j];
-                    textBlock.FontSize = 8;
+                    textBlock.FontSize = 9;
+                    textBlock.FontWeight = FontWeights.Bold;
+                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    textBlock.VerticalAlignment = VerticalAlignment.Center;
+                    textBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
                     uniformGridText.Children.Add(textBlock);
                 }
             }
@@ -314,7 +327,6 @@ namespace CANController
         public string GetRandomColor()
         {
             Random RandomNum_First = new Random((int)DateTime.Now.Ticks);
-            //  对于C#的随机数，没什么好说的
             System.Threading.Thread.Sleep(RandomNum_First.Next(50));
             Random RandomNum_Sencond = new Random((int)DateTime.Now.Ticks);
 
@@ -366,6 +378,17 @@ namespace CANController
             {
                 _fileName = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("fileName"));
+            }
+        }
+
+        private String _Baudrate = "";
+        public String Baudrate
+        {
+            get { return _Baudrate; }
+            set
+            {
+                _Baudrate = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Baudrate"));
             }
         }
 

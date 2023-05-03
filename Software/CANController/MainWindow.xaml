@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
         x:Name="Panel"
@@ -98,6 +99,7 @@
                         <Image Grid.Column="1" Source="{Binding BLWPath, ElementName=Panel, Mode=OneWay}"/>
                         <Button Grid.Column="2" x:Name="BigFan" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="ButtonClick" Margin="30,15,30,15">
                             <Image Source="./Image/bigfan.png"/>
+                            <!--Image gif:AnimationBehavior.SourceUri="./Image/loading-0.gif"/-->
                         </Button>
                     </Grid>
                 </Border>
@@ -208,8 +210,8 @@
                             <ColumnDefinition Width="0.9*"/>
                             <ColumnDefinition Width="0.9*"/>
                             <ColumnDefinition Width="1.0*"/>
-                            <ColumnDefinition Width="0.6*"/>
-                            <ColumnDefinition/>
+                            <!--ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition/-->
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" x:Name="CANDetail" Margin="5" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
                             <Image Source="./Image/CAN.png" Margin="5"/>
@@ -217,8 +219,9 @@
                         <Button Grid.Column="1" x:Name="DBCDetail" Margin="5" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showDBCDetail">
                             <Image Source="./Image/DBC.png" Margin="5"/>
                         </Button>
-                        <Image Grid.Column="2" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
-                        <Grid Grid.Column="3">
+                        <!--" Image Grid.Column="2" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image-->
+                        <Image Grid.Column="2" Margin="15" gif:AnimationBehavior.SourceUri="./Image/wifi.gif"/>
+                        <!--Grid Grid.Column="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
@@ -241,7 +244,7 @@
                             <TextBlock Foreground="#FF456CB2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25" FontWeight="Bold" FontFamily="Bahnschrift SemiBold">
                                 50
                             </TextBlock>
-                        </Grid>
+                        </Grid-->
                     </Grid>
                 </Border>
             </Grid>
