@@ -133,9 +133,9 @@
                             <RowDefinition/>
                             <RowDefinition Height="0.7*"/>
                         </Grid.RowDefinitions>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="21.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="21.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="20.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="19.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
                     </Grid>
                 </Border>
                 <Border Grid.Column="2" CornerRadius="160,25,25,160" Margin="30" Opacity="0.8" Background="White">
@@ -145,9 +145,9 @@
                             <RowDefinition/>
                             <RowDefinition Height="0.7*"/>
                         </Grid.RowDefinitions>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="21.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="21.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="20.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
+                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="19.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -211,9 +211,11 @@
                             <ColumnDefinition Width="0.6*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" x:Name="CANDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
+                        <Button Grid.Column="0" x:Name="CANDetail" Margin="5" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showCANDetail">
+                            <Image Source="./Image/CAN.png" Margin="5"/>
                         </Button>
-                        <Button Grid.Column="1" x:Name="DBCDetail" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showDBCDetail">
+                        <Button Grid.Column="1" x:Name="DBCDetail" Margin="5" Template="{DynamicResource CarButtonTemplate}" Style="{StaticResource ButtonStyle}" Click="showDBCDetail">
+                            <Image Source="./Image/DBC.png" Margin="5"/>
                         </Button>
                         <Image Grid.Column="2" Source="./Image/pm2.5.png" Margin="20" HorizontalAlignment="Center"></Image>
                         <Grid Grid.Column="3">

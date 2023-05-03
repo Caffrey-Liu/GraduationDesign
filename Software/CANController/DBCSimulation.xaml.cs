@@ -148,7 +148,7 @@ namespace CANController
             {
                 get
                 {
-                    return this._data;
+                    return _data;
                 }
                 set
                 {
@@ -156,7 +156,7 @@ namespace CANController
                     setImg(value);
                     if (PropertyChanged != null)
                     {
-                        this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("data"));
+                        PropertyChanged.Invoke(this, new PropertyChangedEventArgs("data"));
                     }
                 }
             }
@@ -166,14 +166,14 @@ namespace CANController
             {
                 get
                 {
-                    return this._image;
+                    return _image;
                 }
                 set
                 {
                     _image = value;
                     if (PropertyChanged != null)
                     {
-                        this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("image"));
+                        PropertyChanged.Invoke(this, new PropertyChangedEventArgs("image"));
                     }
                 }
             }
@@ -225,8 +225,9 @@ namespace CANController
                 Grid grid = new Grid();
                 grid.Name = msg.MessageName;
                 TextBlock MSGtextBlock = new TextBlock();
-                MSGtextBlock.Text = msg.MessageName;
-                MSGtextBlock.FontSize = 16;
+                MSGtextBlock.Text = "  " + msg.MessageName + "  ";
+                MSGtextBlock.FontSize = 20;
+                MSGtextBlock.Margin = new Thickness(5);
                 MSGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
                 MSGtextBlock.FontWeight = FontWeights.Bold;
                 MSGtextBlock.HorizontalAlignment = HorizontalAlignment.Center;
@@ -246,14 +247,14 @@ namespace CANController
                     siggrid.Height = 100;
                     siggrid.Width = 100;
                     siggrid.Name = sig.SignalName;
-                    siggrid.MouseLeftButtonDown += SIGGrid_MouseLeftButtonDown; ;
-                    siggrid.RowDefinitions.Add(new RowDefinition());
-                    siggrid.RowDefinitions.Add(new RowDefinition());
+                    siggrid.MouseLeftButtonDown += SIGGrid_MouseLeftButtonDown;
+                    siggrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(3,GridUnitType.Star)});
+                    siggrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1,GridUnitType.Star)});
 
                     TextBlock SIGtextBlock = new TextBlock();
                     SIGtextBlock.HorizontalAlignment = HorizontalAlignment.Center;
                     SIGtextBlock.VerticalAlignment = VerticalAlignment.Center;
-                    SIGtextBlock.Text = sig.SignalName;
+                    SIGtextBlock.Text = "  " + sig.SignalName + "  ";
                     SIGtextBlock.FontSize = 12;
                     SIGtextBlock.FontWeight = FontWeights.Bold;
                     SIGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");

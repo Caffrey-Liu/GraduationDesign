@@ -8,13 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state1.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state2.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state3.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state4.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state5.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state6.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state7.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/state8.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/can.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/dbc.png")]
 
 
