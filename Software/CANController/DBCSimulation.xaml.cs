@@ -225,7 +225,7 @@ namespace CANController
                 Grid grid = new Grid();
                 grid.Name = msg.MessageName;
                 TextBlock MSGtextBlock = new TextBlock();
-                MSGtextBlock.Text = "  " + msg.MessageName + "  ";
+                MSGtextBlock.Text = "消息帧名称：  " + msg.MessageName + "  ";
                 MSGtextBlock.FontSize = 20;
                 MSGtextBlock.Margin = new Thickness(5);
                 MSGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");

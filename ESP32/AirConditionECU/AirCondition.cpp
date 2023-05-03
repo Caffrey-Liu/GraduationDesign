@@ -5,13 +5,13 @@ AirCondition::AirCondition(){
 }
 
 void AirCondition::Init(){
-  TAM = 201;
-  TR = 150;
+  TAM = 191;
+  TR = 140;
   TE[0] = 1;
-  TE[1] = 164;
+  TE[1] = 164 + rand() % 50;
   RH[0] = char(1);
-  RH[1] = char(69);
-  TS = 63;
+  RH[1] = char(69 + rand() % 20);
+  TS = 63 + rand() % 20;
 
   BLMLVL = 0;
   AIRMIXDR = 68;
@@ -37,6 +37,15 @@ void AirCondition::changeForPANELMSG01(PANELMSG01 panelmsg01){
 }
 
 void AirCondition::sendACMSG01(){
+
+  TAM = 191 + rand() % 10;
+  TR = 140 + rand() % 10;
+  TE[0] = 1;
+  TE[1] = 164 + rand() % 30;
+  RH[0] = char(1);
+  RH[1] = char(69 + rand() % 10);
+  TS = 63 + rand() % 20;
+
   CAN.beginPacket(0x101);
   CAN.write(TAM);
   CAN.write(TR);
