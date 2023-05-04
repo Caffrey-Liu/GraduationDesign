@@ -134,8 +134,9 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.13*"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="0.13*"/>
+                <RowDefinition/>
+                <!--RowDefinition/-->
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" TextAlignment="Center" FontWeight="Bold" FontSize="14" Background="LightGray" VerticalAlignment="Center">信息</TextBlock>
             <ScrollViewer Grid.Row="1">
@@ -143,6 +144,9 @@
 
                 </TextBlock>
             </ScrollViewer>
+            <!--DataGrid Grid.Row="2" Name="Frame" ItemsSource="{Binding frameInfo, ElementName=CANInfo, Mode=OneWay}" AutoGenerateColumns="True">
+                
+            </DataGrid-->
         </Grid>
     </Grid>
 </Window>

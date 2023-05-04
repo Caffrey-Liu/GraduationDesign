@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="1932208">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="3460528">
       <assemblyIdentity name="CANController" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Y7j6W7K9vYfWvQPuL5Zf+AVX17TFtgHUetSISpmh1sc=</dsig:DigestValue>
+        <dsig:DigestValue>iAcOmnvPoOUZP+UEkHKhp6w0UJEg+mR+YM9IjIQnZ+g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

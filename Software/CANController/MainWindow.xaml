@@ -55,7 +55,7 @@
     </Window.Resources>
     <Border Margin="10" BorderThickness="1" CornerRadius="15,15,15,15">
         <Border.Background>
-            <ImageBrush ImageSource="./Image/panel3.png"/>
+            <ImageBrush x:Name="BackGround" ImageSource="{Binding BackGroundPath, ElementName=Panel, Mode=OneWay}"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>

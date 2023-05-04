@@ -65,7 +65,9 @@ void sendPacket(){
 
   airCondition.sendACMSG01();
   airCondition.sendACMSG02();
-
+  airCondition.sendENGMSG01();
+  airCondition.sendFRNMSG01();
+  airCondition.sendACCMPMSG01();
   //Serial.println("done");
 
   delay(250);

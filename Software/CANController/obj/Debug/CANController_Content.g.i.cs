@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/wifi.gif")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/panel_on.png")]
 
 

@@ -169,7 +169,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\panel3.png" />
+    <Resource Include="Image\panel_off.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\cold.png" />
@@ -303,6 +303,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\wifi.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\panel_on.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

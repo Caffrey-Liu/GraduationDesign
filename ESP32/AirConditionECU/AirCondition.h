@@ -58,11 +58,40 @@ class AirCondition{
       char OUTLETDIR;
       //RRDEFSTATUS OFF:0 ON:1, 后车窗及后视镜除雾状态
       char RRDEFSTATUS;
-       
+      
+      //ENGMSG01 0x060
+      //范围：0-255，默认值：0xAA
+      char ENGID;
+      //范围：0-65535，起始值：0x0，单位：rpm Offset:0, 精度：1rpm
+      char ENGSPF[2];
+      //范围：0-255，起始值：16℃，单位：℃ Offset:0℃, 精度：0.5℃，范围16.0~127.0℃
+      char TW;
+
+      //FRNMSG01 0x300
+      //范围：0-1023, 对应电压0~5V，初始值：0，单位：V
+      char TAMRaw[2];
+      //范围：0-1023，对应电压0~5V，初始值：0x0，单位：V
+      char TRRaw[2];
+      //范围：0-1023，对应电压0~5V，初始值：0x0，单位：V
+      char TERaw[2];
+      //范围：0-1023，对应电压0~5V，初始值：0x0，单位：V
+      char RHRaw[2];
+      //范围：0-255，对应0 ~4.448kW/m，初始值：0x0，单位：17.5W/ m2
+      char TSin;
+
+      //ACCMPMSG01 0x333
+      //范围：0-65535，默认值：0, 精度1rpm，物理范围0~20000rpm
+      char RCOMP[2];
+      //范围：0-3，起始值：0x0 0: 待机，1: 停止，2: 运转，3: 故障
+      char COMPStatus;
+
       AirCondition();
       void Init();
       void sendACMSG01();
       void sendACMSG02();
+      void sendENGMSG01();
+      void sendFRNMSG01();
+      void sendACCMPMSG01();
       void changeForPANELMSG01(PANELMSG01 panelmsg01);
 };
 #endif

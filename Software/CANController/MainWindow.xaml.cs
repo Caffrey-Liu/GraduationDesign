@@ -33,6 +33,7 @@ namespace CANController
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             can.CloseCANDevice();
+            System.Environment.Exit(0);
         }
 
         #region 定义各种面板变量,实现接口
@@ -41,6 +42,17 @@ namespace CANController
         public void OnPropertyChanged(string PropertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        private String _BackGroundPath = "./Image/panel_off.png";
+        public String BackGroundPath
+        {
+            get { return _BackGroundPath; }
+            set
+            {
+                _BackGroundPath = value;
+                OnPropertyChanged("BackGroundPath");
+            }
         }
 
         private String _OutCyclePath = "./Image/OutCycle_off.png";
@@ -311,6 +323,8 @@ namespace CANController
                                                   "00", //时间高位
                                                   "1C"); //时间低位,默认 00 1C 500Mps
                 firstTime = 1;
+                panelMSG.getValueFromAirConditionInfo(airConditionInfo, (char)airConditionInfo.POWER);
+                buttonSendFrameData();
             }         
             if (firstTime != 0 )
             {
@@ -376,6 +390,7 @@ namespace CANController
                             can.StartCAN(); //启动CAN设备
                             Console.WriteLine("启动成功");
                             can.ReceviedData += Can_ReceviedData;
+                            BackGroundPath = "./Image/panel_on.png";
                         }
                         else
                         {
@@ -385,6 +400,7 @@ namespace CANController
                             can.ReceviedData -= Can_ReceviedData;
                             airConditionInfo = new AirConditionInfo();
                             RefreshPanel();
+                            BackGroundPath = "./Image/panel_off.png";
                         }
                     }
                     buttonSendFrameData();
@@ -399,9 +415,8 @@ namespace CANController
         }
 
         CanDetail CD = new CanDetail();
-        int CDtag = 0;
         private void showCANDetail(object sender, RoutedEventArgs e) {
-            if (CDtag == 0)
+            if (!CD.IsVisible)
             {
                 CD.PassDataBetweenForm += new CanDetail.PassDataBetweenFormHandler(sendFrameData);
                 can.ReceviedData += CD.Can_ReceviedData;
@@ -412,21 +427,18 @@ namespace CANController
                 Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
 
                 CD.WindowState = WindowState.Normal; 
-                CDtag = 1;
             }
             else {
                 can.ReceviedData -= CD.Can_ReceviedData;
                 CD.PassDataBetweenForm -= new CanDetail.PassDataBetweenFormHandler(sendFrameData);
                 CD.Hide();
-                CDtag = 0;
             }        
         }
         
         DBCDetail DD = new DBCDetail();
-        int DDtag = 0;
         private void showDBCDetail(object sender, RoutedEventArgs e)
         {
-            if (DDtag == 0)
+            if (!DD.IsVisible)
             {
                 can.ReceviedData += DD.DS.Can_ReceviedData;
                 DD.Show();
@@ -435,13 +447,11 @@ namespace CANController
                 Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
 
                 DD.WindowState = WindowState.Normal;
-                DDtag = 1;
             }
             else
             {
                 can.ReceviedData -= DD.DS.Can_ReceviedData;
                 DD.Hide();
-                DDtag = 0;
             }
         }
 

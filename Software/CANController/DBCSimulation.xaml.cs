@@ -25,7 +25,7 @@ namespace CANController
     /// <summary>
     /// DBCSimulation.xaml 的交互逻辑
     /// </summary>
-    public partial class DBCSimulation : Window, INotifyPropertyChanged
+    public partial class DBCSimulation : Window
     {
         public DBCSimulation()
         {
@@ -60,29 +60,16 @@ namespace CANController
                 }
             }
             //Console.WriteLine(message.Data);
-            String binary_values = convertHexToBitArray(message.Data);
-            #region 输出binary_values检查
-            //int count = 0;
-            //for (int i = 0; i < binary_values.Length; i++)
-            //{
-            //    if (count == 8)
-            //    {
-            //        Console.WriteLine();
-            //        count = 0;
-            //    }
-            //    Console.Write(binary_values[i] + " ");
-            //    count++;
-            //}
-            //Console.WriteLine();
-            //Console.WriteLine();
-            #endregion
+            
             if (messageInfo != null)
             {
                 foreach (SignalInfo temp in messageInfo.SignalInfo)
                 {
+                    //intel序
                     if (temp.SignalByteOrder.Equals("1"))
                     {
-                        String str = Reverse(binary_values.Substring(temp.SignalStartBit, temp.SignalBitSize));
+                        String binary_values_intel = convertHexToBitArray(message.Data,1);
+                        String str = Reverse(binary_values_intel.Substring(temp.SignalStartBit, temp.SignalBitSize));
                         double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
                         //Console.WriteLine(temp.SignalName + " = " + num);
                         if (signal_values.ContainsKey(temp.SignalName))
@@ -97,16 +84,61 @@ namespace CANController
                             signal_values.Add(temp.SignalName, data); 
                         }
                     }
+                    //motorola序
+                    if (temp.SignalByteOrder.Equals("0")) 
+                    {
+                        String binary_values_motorola = convertHexToBitArray(message.Data, 0);
+                        //#region 输出binary_values检查
+                        //int count = 0;
+                        //for (int i = 0; i < binary_values_motorola.Length; i++)
+                        //{
+                        //    if (count == 8)
+                        //    {
+                        //        Console.WriteLine();
+                        //        count = 0;
+                        //    }
+                        //    Console.Write(binary_values_motorola[i] + " ");
+                        //    count++;
+                        //}
+                        //Console.WriteLine();
+                        //Console.WriteLine();
+                        //#endregion
+                        int start = (1 + (temp.SignalStartBit / 8) * 2) * 8 -1 - temp.SignalStartBit;
+                        String str = binary_values_motorola.Substring(start, temp.SignalBitSize);
+                        double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
+                        if (signal_values.ContainsKey(temp.SignalName))
+                        {
+                            signal_values[temp.SignalName].data = num;
+                        }
+                        else
+                        {
+                            Data data = new Data();
+                            data.setType(temp.SignalBitSize);
+                            data.data = num;
+                            signal_values.Add(temp.SignalName, data);
+                        }
+                    }
                 }
             }
         }
 
-        public string convertHexToBitArray(string hexData)
+        public string convertHexToBitArray(string hexData,int order)
         {
             string binary_values = "";
-            for (int i = 0; i < hexData.Length; i = i + 2) {
-                binary_values = binary_values + Reverse(convertHexCharToBit(hexData[i + 1]));
-                binary_values = binary_values + Reverse(convertHexCharToBit(hexData[i]));
+            if (order == 1)
+            {
+                for (int i = 0; i < hexData.Length; i = i + 2)
+                {
+                    binary_values = binary_values + Reverse(convertHexCharToBit(hexData[i + 1]));
+                    binary_values = binary_values + Reverse(convertHexCharToBit(hexData[i]));
+                }
+            }
+            else 
+            {
+                for (int i = 0; i < hexData.Length; i = i + 1)
+                {
+                    binary_values = binary_values + convertHexCharToBit(hexData[i]);
+                }
             }
             return binary_values;
         }
@@ -137,13 +169,6 @@ namespace CANController
             if (temp == 'E') return "1110";
             if (temp == 'F') return "1111";
             return null;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, e);
         }
 
         public class Data : INotifyPropertyChanged
@@ -209,18 +234,9 @@ namespace CANController
                 if (type == 2) { }
             }
             public void setType(int SignalBitSize) {
-                if (SignalBitSize == 1)
-                {
-                    type = 0;
-                }
-                else if (SignalBitSize < 5)
-                {
-                    type = 1;
-                }
-                else
-                {
-                    type = 2;
-                }
+                if (SignalBitSize == 1) { type = 0;}
+                else if (SignalBitSize < 5) { type = 1;}
+                else { type = 2;}
             }
         }
         public void Draw()
@@ -232,17 +248,32 @@ namespace CANController
                 BrushConverter brushConverter = new BrushConverter();
 
                 Grid grid = new Grid();
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
                 grid.Name = msg.MessageName;
-                TextBlock MSGtextBlock = new TextBlock();
-                MSGtextBlock.Text = "消息帧名称：  " + msg.MessageName + "  ";
-                MSGtextBlock.FontSize = 20;
-                MSGtextBlock.Margin = new Thickness(5);
-                MSGtextBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
-                MSGtextBlock.FontWeight = FontWeights.Bold;
-                MSGtextBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                MSGtextBlock.VerticalAlignment = VerticalAlignment.Center;
-                MSGtextBlock.Background = (Brush)brushConverter.ConvertFromString("#FFe67e22");
-                grid.Children.Add(MSGtextBlock);
+                TextBlock MSGNameBlock = new TextBlock();
+                MSGNameBlock.Text = "  消息帧名称：  " + msg.MessageName + "  ";
+                MSGNameBlock.FontSize = 20;
+                MSGNameBlock.Margin = new Thickness(5);
+                MSGNameBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
+                MSGNameBlock.FontWeight = FontWeights.Bold;
+                MSGNameBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                MSGNameBlock.VerticalAlignment = VerticalAlignment.Center;
+                MSGNameBlock.Background = (Brush)brushConverter.ConvertFromString("#FFe67e22");
+                Grid.SetColumn(MSGNameBlock, 0);
+                grid.Children.Add(MSGNameBlock);
+
+                TextBlock MSGFromBlock = new TextBlock();
+                MSGFromBlock.Text = "  发送节点：  " + msg.Transmitter + "  ";
+                MSGFromBlock.FontSize = 20;
+                MSGFromBlock.Margin = new Thickness(5);
+                MSGFromBlock.Foreground = (Brush)brushConverter.ConvertFromString("#FFFFFFFF");
+                MSGFromBlock.FontWeight = FontWeights.Bold;
+                MSGFromBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                MSGFromBlock.VerticalAlignment = VerticalAlignment.Center;
+                MSGFromBlock.Background = (Brush)brushConverter.ConvertFromString("#FFe67e22");
+                Grid.SetColumn(MSGFromBlock, 1);
+                grid.Children.Add(MSGFromBlock);
 
                 Canvas canvas = new Canvas();
                 canvas.Height = 300;

@@ -133,7 +133,7 @@ namespace CANController
                     messageInfo.MessageId = System.Convert.ToInt64(Words[1]).ToString("X8");
                     messageInfo.MessageName = Words[2].Substring(0, Words[2].Length - 1);
                     messageInfo.MessageSize = Words[3];
-                    messageInfo.Transmitter = Words[4];
+                    messageInfo.Transmitter = Words[4].Remove(Words[4].Length - 1);
                     i++;
                     int SignalCount = 0;
                     while (!(line[i].Equals("") || line[i].Equals(newLine)))
@@ -340,10 +340,9 @@ namespace CANController
         }
 
         public DBCSimulation DS = new DBCSimulation();
-        int DStag = 0;
         private void showDBCSimulation(object sender, RoutedEventArgs e)
         {
-            if (DStag == 0)
+            if (!DS.IsVisible)
             {
                 DS.Show();
                 WindowInteropHelper parentHelper = new WindowInteropHelper(this);
@@ -351,12 +350,10 @@ namespace CANController
                 Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
 
                 DS.WindowState = WindowState.Normal;
-                DStag = 1;
             }
             else
             {
                 DS.Hide();
-                DStag = 0;
             }
         }
     }

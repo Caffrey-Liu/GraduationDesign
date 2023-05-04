@@ -1,6 +1,7 @@
 ﻿using CAN;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,23 +37,30 @@ namespace CANController
             this.Hide();
             e.Cancel = true;
         }
-
+        int count = 1;
         public void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
             FrameInfo message = e.CanFrameInfo;
-            //Console.WriteLine("2号窗收到消息");
-            //Console.WriteLine("ID   " + message.FrameID + "   Data    " + message.Data);
-            CurrentProgress += "接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   数据长度：" + message.Data.Length/2 + "   帧数据：";
+            //try { 
+            //frameInfo.Add(message); }
+            //catch (Exception ex){ Console.WriteLine(ex.StackTrace); }
+
+            CurrentProgress += "序号: " + count + "   接收时间：" + DateTime.Now.ToString() + "   帧ID： " + message.FrameID + "   帧格式：" + message.FrameFormat + "   " + message.FrameType + "   数据长度：" + message.Data.Length/2 + "   帧数据：";
             for (int i = 0; i < message.Data.Length; i = i + 2) {
                 CurrentProgress += "" + message.Data[i] + message.Data[i+1] + " ";
             }
             CurrentProgress += '\n';
+            count++;
+            if (count % 100 == 0) {
+                CurrentProgress = "";
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string PropertyName)
+        public void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
         }
         private String _CurrentProgress = "";
         public String CurrentProgress
@@ -61,9 +69,21 @@ namespace CANController
             set
             {
                 _CurrentProgress = value;
-                OnPropertyChanged("CurrentProgress");
+                OnPropertyChanged(new PropertyChangedEventArgs("CurrentProgress"));
             }
         }
+
+        private ObservableCollection<FrameInfo> _frameInfo  = new ObservableCollection<FrameInfo>();
+        public ObservableCollection<FrameInfo> frameInfo
+        {
+            get { return _frameInfo; }
+            set
+            {
+                _frameInfo = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("frameInfo"));
+            }
+        }
+
         public delegate void PassDataBetweenFormHandler(object sender, PassDataWinFormEventArgs e);
         public event PassDataBetweenFormHandler PassDataBetweenForm;
         private void CAN_SendData(object sender, EventArgs e)
