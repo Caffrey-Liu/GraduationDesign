@@ -15,6 +15,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -81,14 +82,17 @@ namespace CANController
                             Data data = new Data();
                             data.setType(temp.SignalBitSize);
                             data.data = num;
+                            data.Max = temp.Max;
+                            data.Min = temp.Min;
                             signal_values.Add(temp.SignalName, data); 
                         }
+                        if (dataDraw.ContainsKey(temp.SignalName)) dataDraw[temp.SignalName].Modes.Refresh(num); 
                     }
                     //motorola序
                     if (temp.SignalByteOrder.Equals("0")) 
                     {
                         String binary_values_motorola = convertHexToBitArray(message.Data, 0);
-                        //#region 输出binary_values检查
+                        #region 输出binary_values检查
                         //int count = 0;
                         //for (int i = 0; i < binary_values_motorola.Length; i++)
                         //{
@@ -102,7 +106,7 @@ namespace CANController
                         //}
                         //Console.WriteLine();
                         //Console.WriteLine();
-                        //#endregion
+                        #endregion
                         int start = (1 + (temp.SignalStartBit / 8) * 2) * 8 -1 - temp.SignalStartBit;
                         String str = binary_values_motorola.Substring(start, temp.SignalBitSize);
                         double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
@@ -115,8 +119,11 @@ namespace CANController
                             Data data = new Data();
                             data.setType(temp.SignalBitSize);
                             data.data = num;
+                            data.Max = temp.Max;
+                            data.Min = temp.Min;
                             signal_values.Add(temp.SignalName, data);
                         }
+                        if (dataDraw.ContainsKey(temp.SignalName)) dataDraw[temp.SignalName].Modes.Refresh(num);
                     }
                 }
             }
@@ -176,6 +183,8 @@ namespace CANController
             public event PropertyChangedEventHandler PropertyChanged;
 
             public int type;
+            public double Max;
+            public double Min;
 
             private double _data;
             public double data
@@ -353,6 +362,7 @@ namespace CANController
                     Border border = new Border();
                     border.Background = (Brush)brushConverter.ConvertFromString("#FFe84078");
                     border.Opacity = 0;
+                    border.Name = sig.SignalName;
                     Grid.SetRowSpan(border, 2);
                     siggrid.Children.Add(border);
                     Canvas.SetLeft(siggrid, canvasleft);
@@ -371,31 +381,47 @@ namespace CANController
         }
 
         Grid SelectedGrid;
+        Dictionary<String, DataDraw> dataDraw = new Dictionary<string, DataDraw>();
         private void SIGGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source.GetType() == typeof(Border)) {
-                Border border = (Border)e.Source;
+            Border border;
+            if (e.Source.GetType() == typeof(Border))
+            {
+                border = (Border)e.Source;
                 SelectedGrid = (Grid)VisualTreeHelper.GetParent(border);
             }
-            //else if (e.Source.GetType() == typeof(TextBlock))
-            //{
-            //    TextBlock textBlock = (TextBlock)e.Source;
-            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(textBlock);
-            //}
-            //else if (e.Source.GetType() == typeof(Image))
-            //{
-            //    Image image = (Image)e.Source;
-            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(image);
-            //}
-            //else if (e.Source.GetType() == typeof(TextBox))
-            //{
-            //    TextBox textbox = (TextBox)e.Source;
-            //    SelectedGrid = (Grid)VisualTreeHelper.GetParent(textbox);
-            //}
             else return;
-            //Console.WriteLine("点击了" + SelectedGrid.Name +"控件");
-            SelectedGrid.MouseMove += SIGGrid_MouseMove;
-            SelectedGrid.MouseLeftButtonUp += SIGGrid_MouseLeftButtonUp;
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                Console.WriteLine("按下CTRL,打开数据绘图界面");
+                DataDraw DD;
+                if (dataDraw.ContainsKey(border.Name))
+                {
+                    DD = dataDraw[border.Name];
+                    if (!DD.IsVisible) DD.Show();
+                    DD.Modes.Refresh(signal_values[border.Name].data);
+                }
+                else {
+                    DD = new DataDraw(signal_values[border.Name].Max, signal_values[border.Name].Min);
+                    DD.Show();
+                    WindowInteropHelper parentHelper = new WindowInteropHelper(this);
+                    WindowInteropHelper childHelper = new WindowInteropHelper(DD);
+
+                    Win32Native.SetParent(childHelper.Handle, parentHelper.Handle);
+
+                    DD.WindowState = WindowState.Normal;
+
+                    dataDraw.Add(border.Name, DD);
+                    
+                    DD.Modes.Refresh(signal_values[border.Name].data);
+                }
+            }
+            else
+            {
+                //Console.WriteLine("点击了" + SelectedGrid.Name +"控件");
+                SelectedGrid.MouseMove += SIGGrid_MouseMove;
+                SelectedGrid.MouseLeftButtonUp += SIGGrid_MouseLeftButtonUp;
+            }
         }
 
         private void SIGGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

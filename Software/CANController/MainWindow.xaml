@@ -136,7 +136,7 @@
                             <RowDefinition Height="0.7*"/>
                         </Grid.RowDefinitions>
                         <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="20.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
+                        <TextBlock Grid.Row="1" Background="White" Text="20.0" FontSize="64" Margin="20" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="19.5" FontSize="40" Margin="15" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
                     </Grid>
                 </Border>
@@ -148,7 +148,7 @@
                             <RowDefinition Height="0.7*"/>
                         </Grid.RowDefinitions>
                         <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="0" Background="White" BorderThickness="0" Content="20.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Bahnschrift SemiBold"/>
-                        <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="1" Background="White" BorderThickness="0" Content="20.0" FontSize="60" Margin="20" FontFamily="Bahnschrift SemiBold"/>
+                        <TextBlock Grid.Row="1" Background="White" Text="20.0" FontSize="64" Margin="20" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Template="{DynamicResource CarButtonTemplate}" Grid.Row="2" Background="White" BorderThickness="0" Content="19.5" FontSize="40" Margin="15" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold"/>
                     </Grid>
                 </Border>
