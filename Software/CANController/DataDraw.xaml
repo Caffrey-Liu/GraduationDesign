@@ -6,7 +6,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
-        Height="400" Width="450">
+        Height="350" Width="400">
     <Grid>
         <lvc:CartesianChart Series="{Binding LineSeriesCollection}" LegendLocation="Right" FontSize="10">
             <lvc:CartesianChart.AxisX>

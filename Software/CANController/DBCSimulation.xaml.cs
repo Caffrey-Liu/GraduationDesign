@@ -28,6 +28,7 @@ namespace CANController
     /// </summary>
     public partial class DBCSimulation : Window
     {
+        public DBCInfo dbcInfo = new DBCInfo();
         public DBCSimulation()
         {
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -39,8 +40,6 @@ namespace CANController
             this.Hide();
             e.Cancel = true;
         }
-
-        public DBCInfo dbcInfo = new DBCInfo();
 
         public void Can_ReceviedData(object sender, CANFrameInfoArgs e)
         {
@@ -72,7 +71,6 @@ namespace CANController
                         String binary_values_intel = convertHexToBitArray(message.Data,1);
                         String str = Reverse(binary_values_intel.Substring(temp.SignalStartBit, temp.SignalBitSize));
                         double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
-                        //Console.WriteLine(temp.SignalName + " = " + num);
                         if (signal_values.ContainsKey(temp.SignalName))
                         {
                             signal_values[temp.SignalName].data = num;
@@ -393,7 +391,7 @@ namespace CANController
             else return;
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-                Console.WriteLine("按下CTRL,打开数据绘图界面");
+                //Console.WriteLine("按下CTRL,打开数据绘图界面");
                 DataDraw DD;
                 if (dataDraw.ContainsKey(border.Name))
                 {
@@ -401,7 +399,8 @@ namespace CANController
                     if (!DD.IsVisible) DD.Show();
                     DD.Modes.Refresh(signal_values[border.Name].data);
                 }
-                else {
+                else if(signal_values[border.Name].type == 2)
+                {
                     DD = new DataDraw(signal_values[border.Name].Max, signal_values[border.Name].Min);
                     DD.Show();
                     WindowInteropHelper parentHelper = new WindowInteropHelper(this);
@@ -412,7 +411,8 @@ namespace CANController
                     DD.WindowState = WindowState.Normal;
 
                     dataDraw.Add(border.Name, DD);
-                    
+
+                    if (signal_values[border.Name].data != 0)
                     DD.Modes.Refresh(signal_values[border.Name].data);
                 }
             }

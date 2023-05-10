@@ -114,7 +114,7 @@ namespace CANController
 
                 //确保Y轴曲线不会超过图表
                 int maxY = (int)ValueList.Max();
-                AxisYMax = maxY + maxY/4;
+                AxisYMax = maxY + maxY / 4;
 
                 //Y轴保持数据居中（曲线会上下晃动）
                 //int minY = ValueList.Count == 1 ? 0 : (int)ValueList.Min();
@@ -139,7 +139,7 @@ namespace CANController
                 AxisXMax = 15;
                 AxisXMin = 0;
                 AxisYMax = Max;
-                AxisYMin = Min;
+                AxisYMin = Min - 5;
 
                 ValueList = new ChartValues<double>();
                 LineSeriesCollection = new SeriesCollection();
