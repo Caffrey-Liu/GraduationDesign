@@ -60,7 +60,7 @@ void AirCondition::sendACMSG01(){
   TAM = 191 + rand() % 10;
   TR = 140 + rand() % 10;
   TE[0] = 1;
-  TE[1] = 164
+  TE[1] = 164;
   RH[0] = char(1);
   RH[1] = char(69 + rand() % 10);
   TS = 63 + rand() % 20;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CANController"
         mc:Ignorable="d"
-        Title="DBCDetail" Height="567" Width="1008">
+        Title="DBC详细信息" Height="567" Width="1008">
     <Grid>
         
             <Grid>

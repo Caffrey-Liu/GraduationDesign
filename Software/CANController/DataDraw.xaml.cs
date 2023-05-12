@@ -98,7 +98,8 @@ namespace CANController
 
             private string CustomFormattersX(double val)
             {
-                return val.ToString();
+                //return val.ToString();
+                return DateTime.Now.ToString("HH:mm:ss");
             }
 
             private string CustomFormattersY(double val)
@@ -120,14 +121,13 @@ namespace CANController
                 //int minY = ValueList.Count == 1 ? 0 : (int)ValueList.Min();
                 //AxisYMin = minY - 10;
 
-                //y轴的设置
                 if (ValueList.Count > TabelShowCount)
                 {
                     AxisXMax = ValueList.Count - 1;
                     AxisXMin = ValueList.Count - TabelShowCount;
                 }
 
-                //这里如果移除数组，图表曲线会原地起伏，就没有X轴移动的动画效果了
+                //移除数组，图表曲线会原地起伏，没有动画效果
                 //if (ValueList.Count > 20)
                 //{
                 //    ValueList.RemoveAt(0);
@@ -136,7 +136,7 @@ namespace CANController
 
             public Mode(double Max, double Min)
             {
-                AxisXMax = 15;
+                AxisXMax = 10;
                 AxisXMin = 0;
                 AxisYMax = Max;
                 AxisYMin = Min - 5;
@@ -148,11 +148,17 @@ namespace CANController
                 CustomFormatterY = CustomFormattersY;
 
                 LineSeries lineseries = new LineSeries();
-                lineseries.DataLabels = true;
+                lineseries.DataLabels = false;
                 lineseries.Values = ValueList;
                 lineseries.FontWeight = FontWeights.Bold;
                 LineSeriesCollection.Add(lineseries);
             }
+
+            
+        }
+
+        private void CartesianChart_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
         }
     }
 }

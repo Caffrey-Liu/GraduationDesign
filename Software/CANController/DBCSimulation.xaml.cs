@@ -69,7 +69,22 @@ namespace CANController
                     if (temp.SignalByteOrder.Equals("1"))
                     {
                         String binary_values_intel = convertHexToBitArray(message.Data,1);
-                        String str = Reverse(binary_values_intel.Substring(temp.SignalStartBit, temp.SignalBitSize));
+                        String str = "";
+                        if (temp.SignalBitSize <= 8)
+                            str = Reverse(binary_values_intel.Substring(temp.SignalStartBit, temp.SignalBitSize));
+                        else {
+                            int StartBit = temp.SignalStartBit;
+                            int BitSize = temp.SignalBitSize;
+                            while (BitSize >= 8) {
+                                int number = 8 - (StartBit % 8);
+                                str = str + Reverse(binary_values_intel.Substring(StartBit, number));
+                                BitSize = BitSize - number;
+                                StartBit = StartBit + number;
+                            }
+                            str = str + Reverse(binary_values_intel.Substring(StartBit, BitSize));
+                        }
+                        //if (temp.SignalName.Equals("TE"))
+                        //    Console.WriteLine(str);
                         double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
                         if (signal_values.ContainsKey(temp.SignalName))
                         {
