@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CAN.CANhelper">
+    <Position X="1" Y="0.5" Width="6" />
+    <Members>
+      <Property Name="CanReceviedThread" Hidden="true" />
+      <Property Name="CanSetting" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Delegate Name="CAN.CANhelper.OnReceviedCanInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CANhelper.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="CAN.CANhelper.OnReceviedCanMsg" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CANhelper.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EQAAgBBFANAAAAgMARBEAAQCACABAAGCAAAVCEMQAAA=</HashCode>
+      <FileName>CANhelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

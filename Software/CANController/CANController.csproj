@@ -171,6 +171,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="CANController_TemporaryKey.pfx" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="DBC\SimpleACECU-CAN.dbc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

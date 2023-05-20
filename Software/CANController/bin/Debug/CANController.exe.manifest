@@ -49,19 +49,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kgjMXWKJEZfGgZ4e4NGInfN0NN8ZH0UEe42WHpc5wKc=</dsig:DigestValue>
+        <dsig:DigestValue>b9RE4WJFoyvlrqx8gA1mSqlahlLl9h4LD5I//AnPssc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="3466672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CANController.exe" size="3467184">
       <assemblyIdentity name="CANController" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>q2f7pO/U22z15Ae0zKYNf9rcXKEP6bo4D0L1M4+PHO4=</dsig:DigestValue>
+        <dsig:DigestValue>Axv+KfyLFi3cRAYdMswHmrq3RuN3q2c/ciKepf+/oLY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

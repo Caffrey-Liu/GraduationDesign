@@ -321,7 +321,7 @@ namespace CANController
                                                   "00000000", //canCode 过滤码
                                                   "FFFFFFFF", //canMask 掩码
                                                   "00", //时间高位
-                                                  "1C"); //时间低位,默认 00 1C 500Mps
+                                                  "1C"); //时间低位,默认 00 1C 500kbps
                 firstTime = 1;
                 panelMSG.getValueFromAirConditionInfo(airConditionInfo, (char)airConditionInfo.POWER);
                 buttonSendFrameData();

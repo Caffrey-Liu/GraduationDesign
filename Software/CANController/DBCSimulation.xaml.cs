@@ -77,14 +77,14 @@ namespace CANController
                             int BitSize = temp.SignalBitSize;
                             while (BitSize >= 8) {
                                 int number = 8 - (StartBit % 8);
-                                str = str + Reverse(binary_values_intel.Substring(StartBit, number));
+                                str = Reverse(binary_values_intel.Substring(StartBit, number)) + str;
                                 BitSize = BitSize - number;
                                 StartBit = StartBit + number;
                             }
-                            str = str + Reverse(binary_values_intel.Substring(StartBit, BitSize));
+                            str = Reverse(binary_values_intel.Substring(StartBit, BitSize)) + str;
                         }
-                        //if (temp.SignalName.Equals("TE"))
-                        //    Console.WriteLine(str);
+                        if (temp.SignalName.Equals("RH"))
+                            Console.WriteLine(str);
                         double num = temp.Factor * Convert.ToInt32(str, 2) + temp.Offset;
                         if (signal_values.ContainsKey(temp.SignalName))
                         {

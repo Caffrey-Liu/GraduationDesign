@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CANController.AirConditionInfo" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAkgCAAABAIBEEAAAQgAAFABAACAAIAAQSAAgKQ=</HashCode>
+      <FileName>AirConditionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.App" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.CanDetail" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="CANController.CanDetail.PassDataBetweenFormHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CanDetail.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAJBCAgIAAgAAAAAAACAAAgIAAAAA=</HashCode>
+      <FileName>CanDetail.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.DataDraw" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="CANController.DataDraw.ViewModelBase" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataDraw.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="CANController.DataDraw.Mode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataDraw.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAEAAIAAAAAAAAAA=</HashCode>
+      <FileName>DataDraw.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.DBCDetail" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAACAAAAAAAAAAAAAgAAAwRQAAAAAAAIAAACQAAA=</HashCode>
+      <FileName>DBCDetail.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.PanelInfoModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAKAAQJIABAAAAAgAAAAACAAEAIAAAAAAA=</HashCode>
+      <FileName>DBCDetail.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.SignalInfo">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABgABAAAAAAMCAAAAAAAAAEAAiAAAAAAAAAgAA=</HashCode>
+      <FileName>DBCInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.MessageInfo">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAEAAAIAAAAAAAAAACCAAAAAEAAAIAAAAAAA=</HashCode>
+      <FileName>DBCInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.DBCInfo">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACAAAIAAAAABAABACAAEgAAAAAAAAAACABAAAAE=</HashCode>
+      <FileName>DBCInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.DBCSimulation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="CANController.DBCSimulation.Data" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DBCSimulation.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAgAAAAAAAAAggAAADAgAAAAEAAAAAAAgASAAAQQAA=</HashCode>
+      <FileName>DBCSimulation.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEIABKAQQEABCCQlPACBgAAAwIAABDwAAAAAIAAAIEM=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CANController.PanelMSG" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAQAgAAgCACAAAAAhAAAAAAAAAAAAgAAAAABQAAA=</HashCode>
+      <FileName>PanelMSG.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.PassDataWinFormEventArgs" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAEAAAAAA=</HashCode>
+      <FileName>PassInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.Win32Native" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Win32Native.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CANController.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

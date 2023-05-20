@@ -84,7 +84,7 @@ namespace CANController
         public String[] NewSymbols { get; set; }
 
         //BS_
-        public String Baudrate { get; set; } = "9500";
+        public String Baudrate { get; set; } = "500";
 
         //BU_
         public String [] NodeName { get; set; }
