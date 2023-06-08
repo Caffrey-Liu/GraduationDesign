@@ -8,6 +8,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/panel_on.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/can232.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/canete.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/canet_tcp.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/canwifi_tcp.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/canwifi_udp.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/gisadll.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/gpcidll.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/isa5420.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/pc104c2.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/pc104can.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/pci5121.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/kerneldlls/usbcan.dll")]
 
 

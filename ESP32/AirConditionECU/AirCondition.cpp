@@ -7,10 +7,10 @@ AirCondition::AirCondition(){
 void AirCondition::Init(){
   TAM = 191;
   TR = 140;
-  TE[0] = 1;
-  TE[1] = 164;
-  RH[0] = char(1);
-  RH[1] = char(69 + rand() % 20);
+  TE[1] = 1;
+  TE[0] = 164;
+  RH[1] = char(1);
+  RH[0] = char(69 + rand() % 20);
   TS = 63 + rand() % 20;
 
   BLMLVL = 0;
@@ -59,10 +59,10 @@ void AirCondition::sendACMSG01(){
 
   TAM = 191 + rand() % 10;
   TR = 140 + rand() % 10;
-  TE[0] = 1;
-  TE[1] = 164;
-  RH[0] = char(1);
-  RH[1] = char(69 + rand() % 10);
+  TE[1] = 1;
+  TE[0] = 164 + rand() % 10;
+  RH[1] = char(1);
+  RH[0] = char(69 + rand() % 10);
   TS = 63 + rand() % 20;
 
   CAN.beginPacket(0x101);
